@@ -21,8 +21,7 @@
     "body-parser": "^1.15.2",
     "dotenv": "^4.0.0",
     "express": "^4.14.0",
-    "rollbar": "^2.2.7",
-    "underscore": "^1.8.3"
+    "rollbar": "^2.2.7"
   },
   "devDependencies": {
     "morgan": "^1.9.0",
