@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  let User = sequelize.define('user', {
+  let Users = sequelize.define('users', {
     id: {
       type: DataTypes.UUID,
       primaryKey: true,
@@ -20,11 +20,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
       notEmpty: false
+    },
+    role: {
+      type: DataTypes.ENUM(
+        'user',
+        'admin'
+      ),
+      allowNull: true,
+      notEmpty: false
     }
   });
 
-  User.associate = models => {
+  Users.associate = models => {
   };
 
-  return User;
+  return Users;
 };
