@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  let Skills = sequelize.define('skills', {
+  let Technologies = sequelize.define('technologies', {
     id: {
       type: DataTypes.UUID,
       primaryKey: true,
@@ -12,12 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  Skills.associate = models => {
-    Skills.hasMany(models.technologies, {
+  Technologies.associate = models => {
+    Technologies.belongsTo(models.skills, {
       foreignKey: 'skillId',
       onDelete: 'CASCADE'
     });
   };
 
-  return Skills;
+  return Technologies;
 };
