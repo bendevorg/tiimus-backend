@@ -8,5 +8,6 @@ const controllers = retrieveControllers(path.basename(__filename).split('.')[0])
 //  Auth API
 router.post('/sign_up', controllers.signUp);
 router.post('/sign_in', controllers.signIn);
+router.get('/sign_out', controllers.signOut);
 
 module.exports = router;
