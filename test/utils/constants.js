@@ -1,4 +1,4 @@
-const URL_PREFIX = '/api/';
+const URL_PREFIX = '/';
 
 module.exports = {
   users: {
