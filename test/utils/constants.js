@@ -11,12 +11,17 @@ module.exports = {
   },
   urls: {
     retrieveUrl: () => URL_PREFIX,
-    signUp: () => URL_PREFIX + 'auth/sign_up'
+    signUp: () => URL_PREFIX + 'auth/sign_up',
+    signIn: () => URL_PREFIX + 'auth/sign_in'
   },
   posts: {
     newUser: {
       valid: {
         name: faker.name.findName(),
+        email: faker.internet.email(),
+        password: faker.internet.password()
+      },
+      validNotRegistered: {
         email: faker.internet.email(),
         password: faker.internet.password()
       },
