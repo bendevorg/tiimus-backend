@@ -24,7 +24,7 @@ module.exports = (req, res) => {
   database.technologies
     .findAll({
       where: {
-        gameId: skillId
+        skillId: skillId
       }
     })
     .then(technology => {
