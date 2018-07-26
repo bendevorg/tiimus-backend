@@ -13,6 +13,7 @@ module.exports = {
       INVALID_PASSWORD: 'Password not valid.',
       INVALID_NAME: 'Name not valid.',
       EMAIL_IN_USE: 'This email is already being used',
+      INVALID_SKILL_ID: 'Skill id not valid.',
       UNEXPECTED_RUNNING: 'An error ocurred while processing your request. Please try again.',
       UNEXPECTED_DB: 'An error ocurred while accessing our database. Please try again.'
     }
