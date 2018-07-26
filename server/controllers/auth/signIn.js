@@ -43,11 +43,11 @@ module.exports = (req, res) => {
       }
 
       const decryptedPassword = decryptor(user.password, constants.values.PASSWORD_ENCRYPT_KEY);
-      if (!password) {
+      if (!decryptedPassword) {
         return res.status(500).json({
           msg: constants.messages.error.UNEXPECTED_RUNNING
         });
-      } else if (password !== decryptedPassword) {
+      } else if (password !== decryptedPassword.toString()) {
         return res.status(400).json({
           msg: constants.messages.error.INVALID_USER
         });
