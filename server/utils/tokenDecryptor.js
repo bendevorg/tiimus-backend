@@ -5,7 +5,6 @@
 const jwt = require('jsonwebtoken');
 const constants = require('./constants');
 const decryptor = require('./decryptor');
-const logger = require('../../tools/logger');
 
 /**
  * Decrypt an encrypted token
@@ -29,7 +28,6 @@ module.exports = (token, key) => {
 
     return decryptedData;
   } catch (err) {
-    logger.error(err);
     return false;
   }
 };

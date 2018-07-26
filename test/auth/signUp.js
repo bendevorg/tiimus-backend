@@ -1,6 +1,6 @@
 const chai = require('chai');
 const supertest = require('supertest');
-const constants = require('../utils/constants');
+let constants = require('../utils/constants');
 
 const expect = chai.expect;
 const app =
@@ -66,7 +66,9 @@ module.exports = describe('Sign up use cases', () => {
         else {
           expect(res.status, 'Status').to.equal(201);
           expect(res.body.msg).to.have.property('id');
+          expect(res.header).to.have.property('set-cookie');
           constants.posts.newUser.valid.id = res.body.msg.id;
+          constants.users.validUser.header['cookie'] = res.header['set-cookie'];
           done();
         }
       });

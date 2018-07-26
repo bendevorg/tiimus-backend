@@ -7,12 +7,25 @@ module.exports = {
       header: {
         'content-type': 'application/json'
       }
+    },
+    noSessionUser: {
+      header: {
+        'content-type': 'application/json'
+      }
+    },
+    invalidSessionUser: {
+      header: {
+        'content-type': 'application/json',
+        'cookie': 'session=blablablabalbalbalblabla'
+      }
     }
   },
   urls: {
     retrieveUrl: () => URL_PREFIX,
     signUp: () => URL_PREFIX + 'auth/sign_up',
-    signIn: () => URL_PREFIX + 'auth/sign_in'
+    signIn: () => URL_PREFIX + 'auth/sign_in',
+    signOut: () => URL_PREFIX + 'auth/sign_out',
+    userInfo: () => URL_PREFIX + 'user/info'
   },
   posts: {
     newUser: {
