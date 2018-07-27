@@ -64,7 +64,10 @@ module.exports = (req, res) => {
           tokenData,
           constants.values.TOKEN_ENCRYPT_KEY,
           constants.values.TOKEN_EXPIRATION_IN_SECONDS
-        )
+        ),
+        {
+          expires: new Date(Date.now() + (constants.values.TOKEN_EXPIRATION_IN_SECONDS * 1000))
+        }
       );
 
       return res.status(200).json({
