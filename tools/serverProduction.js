@@ -11,7 +11,13 @@ const logger = require('./logger');
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ['http://localhost:3341'],
+    methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
+    credentials: true
+  })
+);
 app.use(cookieParser());
 app.use('/', router);
 app.use(logger.errorHandler());
