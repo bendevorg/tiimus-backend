@@ -16,7 +16,7 @@ module.exports = {
     invalidSessionUser: {
       header: {
         'content-type': 'application/json',
-        'cookie': 'session=blablablabalbalbalblabla'
+        cookie: 'session=blablablabalbalbalblabla'
       }
     }
   },
@@ -25,7 +25,9 @@ module.exports = {
     signUp: () => URL_PREFIX + 'auth/sign_up',
     signIn: () => URL_PREFIX + 'auth/sign_in',
     signOut: () => URL_PREFIX + 'auth/sign_out',
-    userInfo: () => URL_PREFIX + 'user/info'
+    userInfo: () => URL_PREFIX + 'user/info',
+    retrieveSkills: () => URL_PREFIX + 'skill',
+    newSkill: () => URL_PREFIX + 'skill/new'
   },
   posts: {
     newUser: {
@@ -52,6 +54,14 @@ module.exports = {
         name: faker.name.findName(),
         email: faker.internet.email(),
         password: ''
+      }
+    },
+    newSkill: {
+      valid: {
+        name: faker.name.findName()
+      },
+      invalid: {
+        name: 9001
       }
     }
   }
