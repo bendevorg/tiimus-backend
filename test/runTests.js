@@ -11,8 +11,12 @@ require('./user/userInfo');
 require('./auth/signOut');
 
 //  Skill
-require('./skill/retrieveSkills');
 require('./skill/newSkill');
+require('./skill/retrieveSkills');
+
+//  Technology
+require('./technology/newTechnology');
+require('./technology/retrieveTechnologies');
 
 //  Close connections
 require('./utils/closeApp');

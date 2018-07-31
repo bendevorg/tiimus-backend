@@ -27,7 +27,9 @@ module.exports = {
     signOut: () => URL_PREFIX + 'auth/sign_out',
     userInfo: () => URL_PREFIX + 'user/info',
     retrieveSkills: () => URL_PREFIX + 'skill',
-    newSkill: () => URL_PREFIX + 'skill/new'
+    newSkill: () => URL_PREFIX + 'skill/new',
+    newTechnology: skillId => URL_PREFIX + 'technology/' + skillId + '/new',
+    retrieveTechnologies: skillId => URL_PREFIX + 'technology/' + skillId
   },
   posts: {
     newUser: {
@@ -57,6 +59,14 @@ module.exports = {
       }
     },
     newSkill: {
+      valid: {
+        name: faker.name.findName()
+      },
+      invalid: {
+        name: 9001
+      }
+    },
+    newTechnology: {
       valid: {
         name: faker.name.findName()
       },
