@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  let Users = sequelize.define('users', {
+  let Projects = sequelize.define('projects', {
     id: {
       type: DataTypes.UUID,
       primaryKey: true,
@@ -10,30 +10,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       notEmpty: true
     },
-    email: {
+    description: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       notEmpty: true
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      notEmpty: false
-    },
-    role: {
-      type: DataTypes.ENUM('user', 'admin'),
-      allowNull: true,
-      notEmpty: false
     }
   });
 
-  Users.associate = models => {
-    Users.belongsToMany(models.projects, {
+  Projects.associate = models => {
+    Projects.belongsToMany(models.users, {
       through: models.projects_users,
       onDelete: 'CASCADE'
     });
   };
 
-  return Users;
+  return Projects;
 };
