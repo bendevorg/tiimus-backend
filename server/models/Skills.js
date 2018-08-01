@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'skillId',
       onDelete: 'CASCADE'
     });
+    Skills.belongsToMany(models.projects, {
+      through: models.projects_skills,
+      onDelete: 'CASCADE'
+    });
   };
 
   return Skills;
