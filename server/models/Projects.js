@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
       through: models.projects_technologies,
       onDelete: 'CASCADE'
     });
+    Projects.belongsToMany(models.tags, {
+      through: models.projects_tags,
+      onDelete: 'CASCADE'
+    });
   };
 
   return Projects;
