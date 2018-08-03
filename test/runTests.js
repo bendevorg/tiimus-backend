@@ -18,5 +18,9 @@ require('./skill/retrieveSkills');
 require('./technology/newTechnology');
 require('./technology/retrieveTechnologies');
 
+//  Tag
+require('./tag/newTag');
+require('./tag/retrieveTags');
+
 //  Close connections
 require('./utils/closeApp');
