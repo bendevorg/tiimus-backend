@@ -1,6 +1,19 @@
 /**
- * Module to log in an user
- * @module controllers/auth/signIn
+ * @api {POST} /auth/sign_in User login
+ * @apiName SignIn
+ * @apiGroup Auth
+ * @apiVersion 1.0.0
+ *
+ * @apiParam {String} Users email.
+ * @apiParam {String} Users password.
+ *
+ * @apiSuccess (200) {String} msg Login confirmation message.
+ * @apiSuccessExample {json} Success-Response:
+    { "msg": "User logged." }
+ * @apiError (400) {String} msg Error message.
+ * @apiErrorExample {json} Error-Response:
+    { "msg": "This user/password does not correspond to a valid user." }
+  *
  */
 const database = require('../../models/database');
 const encryptor = require('../../utils/encryptor');
