@@ -1,6 +1,23 @@
 /**
- * Module to retrive skills
- * @module controllers/skill/
+ * @api {GET} /skills Retrieve skills
+ * @apiName Retrieve skills
+ * @apiGroup Skills
+ * @apiVersion 1.0.0
+ *
+ * @apiSuccess (200) {json[]} msg Skills list.
+ * @apiSuccess (200) {String} id Skills id.
+ * @apiSuccess (200) {String} name Skills name.
+ * @apiSuccessExample {json} Success-Response:
+    "msg": [
+        {
+          "id": "012a362a-4f32-496f-bf25-d785d4df42ed",
+          "name": "Skill example"
+        }
+    ]
+ * @apiError (500) {String} msg Error message.
+ * @apiErrorExample {json} Error-Response:
+    { "msg": "Database connection error." }
+  *
  */
 const logger = require('../../../tools/logger');
 const database = require('../../models/database');

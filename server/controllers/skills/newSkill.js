@@ -1,6 +1,23 @@
 /**
- * Module to add a skill
- * @module controllers/skill/newSkill
+ * @api {POST} /skills/new New skill
+ * @apiName New skill
+ * @apiGroup Skills
+ * @apiVersion 1.0.0
+ *
+ * @apiParam {String} name Skills name.
+ *
+ * @apiSuccess (200) {json} msg New skills info.
+ * @apiSuccess (200) {String} id Skills id.
+ * @apiSuccess (200) {String} name Skills name.
+ * @apiSuccessExample {json} Success-Response:
+    "msg": {
+      "id": "012a362a-4f32-496f-bf25-d785d4df42ed",
+      "name": "Skill example"
+    }
+ * @apiError (400) {String} msg Error message.
+ * @apiErrorExample {json} Error-Response:
+    { "msg": "Name not valid." }
+  *
  */
 const database = require('../../models/database');
 const logger = require('../../../tools/logger');

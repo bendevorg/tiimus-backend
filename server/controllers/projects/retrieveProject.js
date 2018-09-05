@@ -1,16 +1,15 @@
 /**
- * @api {GET} /projects/ Retrieve projects
+ * @api {GET} /projects Retrieve projects
  * @apiName Retrieve projects
  * @apiGroup Projects
  * @apiVersion 1.0.0
  *
- *
- * @apiSuccess (200) {json[]} projects Projects list.
+ * @apiSuccess (200) {json[]} msg Projects list.
  * @apiSuccess (200) {String} id Project id.
  * @apiSuccess (200) {String} name Project name.
  * @apiSuccess (200) {String} description Project description.
  * @apiSuccessExample {json} Success-Response:
-    "projects": [
+    "msg": [
         {
           "id": "012a362a-4f32-496f-bf25-d785d4df42ed",
           "name": "Project example",
@@ -41,7 +40,7 @@ module.exports = (req, res) => {
     })
     .then(projects => {
       return res.status(200).json({
-        projects: projects
+        msg: projects
       });
     })
     .catch(err => {
