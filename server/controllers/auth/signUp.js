@@ -4,9 +4,9 @@
  * @apiGroup Auth
  * @apiVersion 1.0.0
  *
- * @apiParam {String} Users name.
- * @apiParam {String} Users email.
- * @apiParam {String} Users password.
+ * @apiParam {String} name Users name.
+ * @apiParam {String} email Users email.
+ * @apiParam {String} password Users password.
  *
  * @apiSuccess (201) {String} id User id.
  * @apiSuccess (201) {String} name User name.

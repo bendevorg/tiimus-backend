@@ -1,6 +1,25 @@
 /**
- * Module to add a project
- * @module controllers/project/newProject
+ * @api {POST} /projects/new New project
+ * @apiName New project
+ * @apiGroup Projects
+ * @apiVersion 1.0.0
+ *
+ * @apiParam {String} name Projects name.
+ * @apiParam {String} description Projects description.
+ *
+ * @apiSuccess (200) {String} id Project id.
+ * @apiSuccess (200) {String} name Project name.
+ * @apiSuccess (200) {String} description Project description.
+ * @apiSuccessExample {json} Success-Response:
+    {
+      "id": "012a362a-4f32-496f-bf25-d785d4df42ed",
+      "name": "Project example",
+      "description": "Project description example"
+    }
+ * @apiError (400) {String} msg Error message.
+ * @apiErrorExample {json} Error-Response:
+    { "msg": "Name not valid." }
+  *
  */
 const database = require('../../models/database');
 const logger = require('../../../tools/logger');

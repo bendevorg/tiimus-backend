@@ -4,8 +4,8 @@
  * @apiGroup Auth
  * @apiVersion 1.0.0
  *
- * @apiParam {String} Users email.
- * @apiParam {String} Users password.
+ * @apiParam {String} email Users email.
+ * @apiParam {String} password Users password.
  *
  * @apiSuccess (200) {String} msg Login confirmation message.
  * @apiSuccessExample {json} Success-Response:
