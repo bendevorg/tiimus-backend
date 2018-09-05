@@ -1,6 +1,24 @@
 /**
- * Module create new user
- * @module controllers/auth/signUp
+ * @api {POST} /auth/sign_up User sign up
+ * @apiName Sign Up
+ * @apiGroup Auth
+ * @apiVersion 1.0.0
+ *
+ * @apiParam {String} Users name.
+ * @apiParam {String} Users email.
+ * @apiParam {String} Users password.
+ *
+ * @apiSuccess (201) {String} id User id.
+ * @apiSuccess (201) {String} name User name.
+ * @apiSuccessExample {json} Success-Response:
+    {
+      "id": "012a362a-4f32-496f-bf25-d785d4df42ed",
+      "name": "User example"
+    }
+ * @apiError (400) {String} msg Error message.
+ * @apiErrorExample {json} Error-Response:
+    { "msg": "E-mail not valid." }
+  *
  */
 const database = require('../../models/database');
 const encryptor = require('../../utils/encryptor');

@@ -6,7 +6,8 @@ module.exports = {
   messages: {
     info: {
       USER_CREATED: 'User created.',
-      USER_LOGGED: 'User logged.'
+      USER_LOGGED: 'User logged.',
+      USER_LOGGED_OUT: 'User logged out.'
     },
     error: {
       INVALID_EMAIL: 'E-mail not valid.',
