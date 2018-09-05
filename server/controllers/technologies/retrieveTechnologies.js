@@ -5,8 +5,8 @@
  * @apiVersion 1.0.0
  *
  * @apiSuccess (200) {json[]} msg Technologies list.
- * @apiSuccess (200) {String} id Technologies id.
- * @apiSuccess (200) {String} name Technologies name.
+ * @apiSuccess (200) {String} id Technologys id.
+ * @apiSuccess (200) {String} name Techonologys name.
  * @apiSuccessExample {json} Success-Response:
     "msg": [
         {
