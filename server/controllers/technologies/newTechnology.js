@@ -1,6 +1,23 @@
 /**
- * Module to add technology to skill
- * @module controllers/technology/newTechnology
+ * @api {POST} /technologies/new New technologie
+ * @apiName New technologie
+ * @apiGroup Technologies
+ * @apiVersion 1.0.0
+ *
+ * @apiParam {String} name Technologies name.
+ *
+ * @apiSuccess (200) {String} msg New Technologies info.
+ * @apiSuccess (200) {String} id Technologies id.
+ * @apiSuccess (200) {String} name Technologies name.
+ * @apiSuccessExample {json} Success-Response:
+    "msg": {
+      "id": "012a362a-4f32-496f-bf25-d785d4df42ed",
+      "name": "Technology example"
+    }
+ * @apiError (400) {String} msg Error message.
+ * @apiErrorExample {json} Error-Response:
+    { "msg": "Name not valid." }
+  *
  */
 const database = require('../../models/database');
 const logger = require('../../../tools/logger');

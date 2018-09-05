@@ -1,6 +1,23 @@
 /**
- * Module to retrive technologies from a skill
- * @module controllers/technology/retrieveTechnologies
+ * @api {GET} /technologies Retrieve technologies
+ * @apiName Retrieve technologies
+ * @apiGroup Technologies
+ * @apiVersion 1.0.0
+ *
+ * @apiSuccess (200) {json[]} msg Technologies list.
+ * @apiSuccess (200) {String} id Technologies id.
+ * @apiSuccess (200) {String} name Technologies name.
+ * @apiSuccessExample {json} Success-Response:
+    "msg": [
+        {
+          "id": "012a362a-4f32-496f-bf25-d785d4df42ed",
+          "name": "Technology example"
+        }
+    ]
+ * @apiError (500) {String} msg Error message.
+ * @apiErrorExample {json} Error-Response:
+    { "msg": "Database connection error." }
+  *
  */
 const logger = require('../../../tools/logger');
 const database = require('../../models/database');
