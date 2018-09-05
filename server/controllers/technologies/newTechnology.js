@@ -1,5 +1,5 @@
 /**
- * @api {POST} /technologies/new New technologie
+ * @api {POST} /technologies/new New technology
  * @apiName New technologie
  * @apiGroup Technologies
  * @apiVersion 1.0.0

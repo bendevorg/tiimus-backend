@@ -5,7 +5,7 @@
  * @apiVersion 1.0.0
  *
  * @apiHeader {String} session User session key
- * 
+ *
  * @apiSuccess (200) {json} msg Users info.
  * @apiSuccess (200) {String} id Users id.
  * @apiSuccess (200) {String} name Users name.
