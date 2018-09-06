@@ -63,3 +63,17 @@ exports.isValidInteger = integerToValidate => {
     parseInt(integerToValidate) >= Number.MIN_SAFE_INTEGER
   );
 };
+
+/**
+ * Validate if the input is a valid array
+ *
+ * @param {array} arrayToValidate - Array to be validated
+ * @return {boolean} - True case the array is valid and false if it is not
+ */
+exports.isValidArray = arrayToValidate => {
+  return (
+    arrayToValidate && 
+    arrayToValidate instanceof Array && 
+    arrayToValidate.length > 0
+  );
+};

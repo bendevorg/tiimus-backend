@@ -26,6 +26,7 @@ const database = require('../../models/database');
 const logger = require('../../../tools/logger');
 const validator = require('../../utils/validator');
 const constants = require('../../utils/constants');
+const insertProjectTags = require('./insertProjectTags');
 
 /**
  * Add a new project
@@ -36,7 +37,7 @@ const constants = require('../../utils/constants');
  *
  */
 module.exports = (req, res) => {
-  let { name, description } = req.body;
+  let { name, description, tags } = req.body;
   if (!validator.isValidString(name)) {
     return res.status(400).json({
       msg: constants.messages.error.INVALID_NAME
@@ -55,9 +56,22 @@ module.exports = (req, res) => {
   newProject
     .save()
     .then(savedProject => {
-      return res.status(200).json({
-        msg: savedProject
-      });
+      if (!validator.isValidArray(tags)) {
+        return res.status(200).json({
+          msg: savedProject
+        });
+      }
+      insertProjectTags(savedProject, tags)
+        .then(savedTags => {
+          return res.status(200).json({
+            msg: savedProject
+          });
+        })
+        .catch(err => {
+          return res.status(500).json({
+            msg: err
+          });
+        });
     })
     .catch(err => {
       logger.error(err);
