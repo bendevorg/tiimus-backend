@@ -6,11 +6,15 @@
  *
  * @apiParam {String} name Projects name.
  * @apiParam {String} description Projects description.
+ * @apiParam {String[]} [tags] Tags related to project
+ * @apiParam {String[]} [skills] Skills needed in project
  *
  * @apiSuccess (200) {String} msg New projects info.
  * @apiSuccess (200) {String} id Projects id.
  * @apiSuccess (200) {String} name Projects name.
  * @apiSuccess (200) {String} description Projects description.
+ * @apiSuccess (200) {String[]} [tags] Tags related to project
+ * @apiSuccess (200) {String[]} [skills] Skills needed in project
  * @apiSuccessExample {json} Success-Response:
     "msg": {
       "id": "012a362a-4f32-496f-bf25-d785d4df42ed",
