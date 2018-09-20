@@ -18,7 +18,7 @@
       "description": "Project description example"
     }
  * @apiError (400) {String} msg Error message.
- * @apiErrorExample {json} Error-Response:
+ * @apiErrorExample {json} Error-Response: 
     { "msg": "Name not valid." }
   *
  */
