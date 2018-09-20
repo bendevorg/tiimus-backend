@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       notEmpty: false
     },
+    lookingForProject: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      notEmpty: false
+    },
     role: {
       type: DataTypes.ENUM('user', 'admin'),
       allowNull: true,
