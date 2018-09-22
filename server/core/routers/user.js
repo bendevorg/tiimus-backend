@@ -7,6 +7,6 @@ const path = require('path');
 const controllers = retrieveControllers(path.basename(__filename).split('.')[0]);
 
 //  Auth API
-router.get('/info', middleware, controllers.userInfo);
+router.get('/', middleware, controllers.userInfo);
 
 module.exports = router;

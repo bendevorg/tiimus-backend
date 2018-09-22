@@ -1,5 +1,5 @@
 /**
- * @api {POST} /skills/new New skill
+ * @api {POST} /skills New skill
  * @apiName New skill
  * @apiGroup Skills
  * @apiVersion 1.0.0

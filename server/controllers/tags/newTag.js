@@ -1,5 +1,5 @@
 /**
- * @api {POST} /tags/new New tag
+ * @api {POST} /tags New tag
  * @apiName New tag
  * @apiGroup Tags
  * @apiVersion 1.0.0

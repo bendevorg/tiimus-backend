@@ -6,7 +6,7 @@ const path = require('path');
 const controllers = retrieveControllers(path.basename(__filename).split('.')[0]);
 
 //  Skill API
-router.post('/new', controllers.newSkill);
+router.post('/', controllers.newSkill);
 router.get('/', controllers.retrieveSkills);
 
 module.exports = router;

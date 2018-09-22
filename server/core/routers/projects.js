@@ -4,9 +4,10 @@ const retrieveControllers = require('../../utils/retrieveControllers');
 const path = require('path');
 
 const controllers = retrieveControllers(path.basename(__filename).split('.')[0]);
+const userMiddleware = require('../../controllers/userMiddleware');
 
-//  Skill API
-router.post('/new', controllers.newProject);
+//  Projects API
+router.post('/', userMiddleware, controllers.newProject);
 router.get('/', controllers.retrieveProject);
 
 module.exports = router;

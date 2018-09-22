@@ -1,5 +1,5 @@
 /**
- * @api {GET} /user/info Retrieve users info
+ * @api {GET} /user Retrieve users info
  * @apiName Retrieve info
  * @apiGroup User
  * @apiVersion 1.0.0

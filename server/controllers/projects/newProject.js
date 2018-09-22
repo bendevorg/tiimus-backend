@@ -1,9 +1,10 @@
 /**
- * @api {POST} /projects/new New project
+ * @api {POST} /projects New project
  * @apiName New project
  * @apiGroup Projects
  * @apiVersion 1.0.0
  *
+ * @apiHeader {String} session Users session.
  * @apiParam {String} name Projects name.
  * @apiParam {String} description Projects description.
  * @apiParam {String[]} [tags] Tags related to project
@@ -30,6 +31,7 @@ const database = require('../../models/database');
 const logger = require('../../../tools/logger');
 const validator = require('../../utils/validator');
 const constants = require('../../utils/constants');
+const insertUser = require('./insertUser');
 const insertProjectTags = require('./insertProjectTags');
 const insertProjectSkills = require('./insertProjectSkills');
 
@@ -42,6 +44,7 @@ const insertProjectSkills = require('./insertProjectSkills');
  *
  */
 module.exports = (req, res) => {
+  let { user } = req;
   let { name, description, tags, skills } = req.body;
   if (!validator.isValidString(name)) {
     return res.status(400).json({
@@ -61,49 +64,59 @@ module.exports = (req, res) => {
   newProject
     .save()
     .then(savedProject => {
-      if (!validator.isValidArray(tags)) {
-        if (!validator.isValidArray(skills)) {
-          return res.status(200).json({
-            msg: savedProject
-          });
-        }
-        insertProjectSkills(savedProject, skills)
-          .then(skillInsert => {
-            return res.status(200).json({
-              msg: {
-                savedProject,
-                skillInsert
-              }
-            });
-          })
-          .catch(err => {
-            return res.status(500).json({
-              msg: err
-            });
-          });
-      }
-      insertProjectTags(savedProject, tags)
-        .then(tagInsert => {
-          if (!validator.isValidArray(skills)) {
-            return res.status(200).json({
-              msg: {
-                savedProject,
-                tagInsert
-              }
-            });
-          }
-          insertProjectSkills(savedProject, skills)
-            .then(skillInsert => {
+      return insertUser(savedProject, user.id, constants.roles.OWNER)
+        .then(userInserted => {
+          if (!validator.isValidArray(tags)) {
+            if (!validator.isValidArray(skills)) {
               return res.status(200).json({
-                msg: {
-                  savedProject,
-                  tagInsert,
-                  skillInsert
-                }
+                msg: savedProject
               });
+            }
+            insertProjectSkills(savedProject, skills)
+              .then(skillInserted => {
+                return res.status(200).json({
+                  msg: {
+                    savedProject,
+                    userInserted,
+                    skillInserted
+                  }
+                });
+              })
+              .catch(err => {
+                return res.status(500).json({
+                  msg: err
+                });
+              });
+          }
+          insertProjectTags(savedProject, tags)
+            .then(tagInserted => {
+              if (!validator.isValidArray(skills)) {
+                return res.status(200).json({
+                  msg: {
+                    savedProject,
+                    userInserted,
+                    tagInserted
+                  }
+                });
+              }
+              insertProjectSkills(savedProject, skills)
+                .then(skillInserted => {
+                  return res.status(200).json({
+                    msg: {
+                      savedProject,
+                      userInserted,
+                      tagInserted,
+                      skillInserted
+                    }
+                  });
+                })
+                .catch(err => {
+                  return res.status(500).json({
+                    msg: err
+                  });
+                });
             })
             .catch(err => {
-              console.log(err);
               return res.status(500).json({
                 msg: err
               });

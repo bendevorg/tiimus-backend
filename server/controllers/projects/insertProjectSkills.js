@@ -2,8 +2,8 @@ module.exports = (project, skills) => {
   return new Promise((resolve, reject) => {
     project
       .addSkills(skills)
-      .then(skillInsert => {
-        return resolve(skillInsert);
+      .then(skillInserted => {
+        return resolve(skillInserted);
       })
       .catch(err => {
         return reject(err);

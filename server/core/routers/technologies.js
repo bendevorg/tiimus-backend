@@ -6,7 +6,7 @@ const path = require('path');
 const controllers = retrieveControllers(path.basename(__filename).split('.')[0]);
 
 //  Technology API
-router.post('/:skillId/new', controllers.newTechnology);
+router.post('/:skillId', controllers.newTechnology);
 router.get('/:skillId', controllers.retrieveTechnologies);
 
 module.exports = router;
