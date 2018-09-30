@@ -36,7 +36,9 @@ const constants = require('../../utils/constants');
 module.exports = (req, res) => {
   database.projects
     .findAll({
-      attributes: ['id', 'name', 'description']
+      attributes: ['id', 'name', 'description'],
+      include: [{model: database.tags, attributes:['id', 'name']},
+      {model: database.skills, attributes:['id', 'name']}]
     })
     .then(projects => {
       return res.status(200).json({
