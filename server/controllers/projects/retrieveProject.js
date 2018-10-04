@@ -24,6 +24,7 @@
 const logger = require('../../../tools/logger');
 const database = require('../../models/database');
 const constants = require('../../utils/constants');
+const validator = require('../../utils/validator');
 
 /**
  * Retrieve all projects
@@ -34,11 +35,21 @@ const constants = require('../../utils/constants');
  *
  */
 module.exports = (req, res) => {
+  const { projectId } = req.params
+  if (!validator.isValidUuid(projectId)) {
+    return res.status(400).json({
+      msg: constants.messages.error.INVALID_PROJECT_ID
+    });
+  }
   database.projects
-    .findAll({
+    .findById(projectId, {
       attributes: ['id', 'name', 'description'],
-      include: [{model: database.tags, attributes:['id', 'name']},
-      {model: database.skills, attributes:['id', 'name']}]
+      include: [
+        { model: database.users, attributes: ['id', 'name'], through: { attributes: ['role'] } },
+        { model: database.tags, attributes: ['id', 'name'], through: { attributes: [] } },
+        { model: database.skills, attributes: ['id', 'name'], through: { attributes: [] } }
+      ],
+
     })
     .then(projects => {
       return res.status(200).json({

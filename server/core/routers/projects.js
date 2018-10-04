@@ -8,7 +8,8 @@ const userMiddleware = require('../../controllers/userMiddleware');
 
 //  Projects API
 router.post('/', userMiddleware, controllers.newProject);
-router.get('/', controllers.retrieveProject);
+router.get('/', controllers.retrieveProjects);
+router.get('/:projectId', controllers.retrieveProject);
 router.patch('/:projectId', controllers.updateProject);
 
 module.exports = router;
