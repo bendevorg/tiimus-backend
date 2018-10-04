@@ -1,6 +1,6 @@
 /**
- * @api {POST} /projects New project
- * @apiName New project
+ * @api {PATCH} /projects Update project
+ * @apiName Update project
  * @apiGroup Projects
  * @apiVersion 1.0.0
  *
@@ -21,7 +21,27 @@
       "id": "012a362a-4f32-496f-bf25-d785d4df42ed",
       "name": "Project example",
       "description": "Project description example"
-    }
+    },
+    "savedTags": [
+        [
+            {
+                "createdAt": "2018-10-04T16:07:14.300Z",
+                "updatedAt": "2018-10-04T16:07:14.300Z",
+                "projectId": "985686f3-d9b5-42c1-a5d0-878aeeb7b5cd",
+                "tagId": "ea1d23ce-5c05-4ae6-b682-d7150d472c95"
+            }
+        ]
+    ],
+    "savedSkills": [
+        [
+            {
+                "createdAt": "2018-10-04T16:07:15.083Z",
+                "updatedAt": "2018-10-04T16:07:15.083Z",
+                "projectId": "985686f3-d9b5-42c1-a5d0-878aeeb7b5cd",
+                "skillId": "401d4081-111c-4ca3-8c0f-d6d8d6c37f27"
+            }
+        ]
+    ]
  * @apiError (400) {String} msg Error message.
  * @apiErrorExample {json} Error-Response: 
     { "msg": "Name not valid." }
@@ -31,9 +51,6 @@ const database = require('../../models/database');
 const logger = require('../../../tools/logger');
 const validator = require('../../utils/validator');
 const constants = require('../../utils/constants');
-const insertUser = require('./insertUser');
-const insertProjectTags = require('./insertProjectTags');
-const insertProjectSkills = require('./insertProjectSkills');
 
 /**
  * Add a new project
