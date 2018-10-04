@@ -44,7 +44,7 @@ const insertProjectSkills = require('./insertProjectSkills');
  *
  */
 module.exports = (req, res) => {
-  const { projectId } = req.params
+  const { projectId } = req.params;
   if (!validator.isValidUuid(projectId)) {
     return res.status(400).json({
       msg: constants.messages.error.INVALID_PROJECT_ID
@@ -58,32 +58,72 @@ module.exports = (req, res) => {
   if (validator.isValidString(description)) {
     projectInfo.description = description.trim();
   }
-  if (validator.isValidArray(tags)) {
-    projectInfo.tags = tags;
-  }
-  if (validator.isValidArray(skills)) {
-    projectInfo.skills = skills;
-  }
-
-  database.projects.update(projectInfo, {where: {id: projectId}})
-    .then(updateConfirm => {
-        if (updateConfirm == 0){
-
-            return res.status(400).json({
-                msg: 'Not a valid project ID.'
+  database.projects
+    .findById(projectId)
+    .then(projectToUpdate => {
+      return projectToUpdate.update(projectInfo).then(updateConfirmation => {
+        if (validator.isValidArray(tags)) {
+          projectToUpdate
+            .setTags(tags)
+            .then(savedTags => {
+              if (validator.isValidArray(skills)) {
+                projectToUpdate
+                  .setSkills(skills)
+                  .then(savedSkills => {
+                    return res.status(200).json({
+                      msg: projectToUpdate,
+                      savedTags,
+                      savedSkills
+                    });
+                  })
+                  .catch(err => {
+                    return res.status(500).json({
+                      msg: err.name
+                    });
+                  });
+              } else {
+                return res.status(200).json({
+                  msg: projectToUpdate,
+                  savedTags
+                });
+              }
+            })
+            .catch(err => {
+              return res.status(500).json({
+                msg: err.name
+              });
+            })
+            .catch(err => {
+              return res.status(500).json({
+                msg: err.name
+              });
             });
-
         } else {
-
+          if (validator.isValidArray(skills)) {
+            projectToUpdate
+              .setSkills(skills)
+              .then(savedSkills => {
+                return res.status(200).json({
+                  msg: projectToUpdate,
+                  savedSkills
+                });
+              })
+              .catch(err => {
+                return res.status(500).json({
+                  msg: err.name
+                });
+              });
+          } else {
             return res.status(200).json({
-                msg: 'Values updated.'
+              msg: savedProject
             });
-
+          }
         }
-
-    }, (err) => {
-        return res.status(500).json({
-            msg: err.name
-        })
+      });
+    })
+    .catch(err => {
+      return res.status(500).json({
+        msg: err.name
+      });
     });
 };
