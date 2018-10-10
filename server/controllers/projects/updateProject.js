@@ -139,8 +139,9 @@ module.exports = (req, res) => {
       });
     })
     .catch(err => {
+      logger.error(err);
       return res.status(500).json({
-        msg: err.name
+        msg: constants.messages.error.UNEXPECTED_DB
       });
     });
 };
