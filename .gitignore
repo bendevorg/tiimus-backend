@@ -62,3 +62,6 @@ typings/
 
 # credentials
 .credentials
+
+# Visual code
+.DS_Store
