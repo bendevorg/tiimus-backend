@@ -5,8 +5,9 @@
  * @apiVersion 1.0.0
  *
  * @apiHeader {String} session Users session.
- * @apiParam {String} [name] Projects name.
- * @apiParam {String} [description] Projects description.
+ * @apiParam {String} projectId Project id.
+ * @apiParam {String} [name] Project name.
+ * @apiParam {String} [description] Project description.
  * @apiParam {String[]} [tags] Tags related to project
  * @apiParam {String[]} [skills] Skills needed in project
  *

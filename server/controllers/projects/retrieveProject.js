@@ -4,7 +4,7 @@
  * @apiGroup Projects
  * @apiVersion 1.0.0
  *
- * @apiHeader {String} projectId Id of the project to be retrieved.
+ * @apiParam {String} projectId Id of the project to be retrieved.
  * 
  * @apiSuccess (200) {json} msg Project infos.
  * @apiSuccess (200) {String} id Project id.
