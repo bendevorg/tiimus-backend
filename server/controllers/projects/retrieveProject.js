@@ -6,7 +6,7 @@
  *
  * @apiHeader {String} projectId Id of the project to be retrieved.
  * 
- * @apiSuccess (200) {json[]} msg Projects list.
+ * @apiSuccess (200) {json} msg Project infos.
  * @apiSuccess (200) {String} id Project id.
  * @apiSuccess (200) {String} name Project name.
  * @apiSuccess (200) {String} description Project description.
