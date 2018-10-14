@@ -1,12 +1,10 @@
 /**
- * @api {GET} /projects Retrieve project
+ * @api {GET} /projects Retrieve projects
  * @apiName Retrieve projects
  * @apiGroup Projects
  * @apiVersion 1.0.0
  *
- * @apiParam {String} projectId Id of the project to be retrieved.
- * 
- * @apiSuccess (200) {json} msg Project infos.
+ * @apiSuccess (200) {json[]} msg Projects list.
  * @apiSuccess (200) {String} id Project id.
  * @apiSuccess (200) {String} name Project name.
  * @apiSuccess (200) {String} description Project description.
@@ -26,7 +24,7 @@
 const logger = require('../../../tools/logger');
 const database = require('../../models/database');
 const constants = require('../../utils/constants');
-const validator = require('../../utils/validator');
+
 
 /**
  * Retrieve all projects
@@ -37,31 +35,13 @@ const validator = require('../../utils/validator');
  *
  */
 module.exports = (req, res) => {
-  const { projectId } = req.params;
-  if (!validator.isValidUuid(projectId)) {
-    return res.status(400).json({
-      msg: constants.messages.error.INVALID_PROJECT_ID
-    });
-  }
   database.projects
-    .findById(projectId, {
+    .findAll({
       attributes: ['id', 'name', 'description'],
       include: [
-        {
-          model: database.users,
-          attributes: ['id', 'name'],
-          through: { attributes: ['role'] }
-        },
-        {
-          model: database.tags,
-          attributes: ['id', 'name'],
-          through: { attributes: [] }
-        },
-        {
-          model: database.skills,
-          attributes: ['id', 'name'],
-          through: { attributes: [] }
-        }
+        { model: database.users, attributes: ['id', 'name'], through: { attributes: ['role'] } },
+        { model: database.tags, attributes: ['id', 'name'], through: { attributes: [] } },
+        { model: database.skills, attributes: ['id', 'name'], through: { attributes: [] } }
       ]
     })
     .then(projects => {
