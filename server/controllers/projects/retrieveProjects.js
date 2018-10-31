@@ -25,7 +25,6 @@ const logger = require('../../../tools/logger');
 const database = require('../../models/database');
 const constants = require('../../utils/constants');
 
-
 /**
  * Retrieve all projects
  *
@@ -39,9 +38,21 @@ module.exports = (req, res) => {
     .findAll({
       attributes: ['id', 'name', 'description'],
       include: [
-        { model: database.users, attributes: ['id', 'name'], through: { attributes: ['role'] } },
-        { model: database.tags, attributes: ['id', 'name'], through: { attributes: [] } },
-        { model: database.skills, attributes: ['id', 'name'], through: { attributes: [] } }
+        {
+          model: database.users,
+          attributes: ['id', 'name'],
+          through: { attributes: ['role'] }
+        },
+        {
+          model: database.tags,
+          attributes: ['id', 'name'],
+          through: { attributes: [] }
+        },
+        {
+          model: database.skills,
+          attributes: ['id', 'name'],
+          through: { attributes: [] }
+        }
       ]
     })
     .then(projects => {
