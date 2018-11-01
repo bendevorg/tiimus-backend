@@ -79,3 +79,13 @@ exports.isValidArray = arrayToValidate => {
     arrayToValidate.length >= 0
   );
 };
+
+/**
+ * Validate if the input is a valid boolean
+ *
+ * @param {boolean} boolToValidate - Boolean to be validated
+ * @return {boolean} - True case the boolean is valid and false if it is not
+ */
+exports.isValidBoolean = boolToValidate => {
+  return typeof boolToValidate === 'boolean';
+};
