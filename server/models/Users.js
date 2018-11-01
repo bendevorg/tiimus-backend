@@ -39,6 +39,10 @@ module.exports = (sequelize, DataTypes) => {
       through: models.projects_users,
       onDelete: 'CASCADE'
     });
+    Users.belongsToMany(models.skills, {
+      through: models.users_skills,
+      onDelete: 'CASCADE'
+    });
   };
 
   return Users;
