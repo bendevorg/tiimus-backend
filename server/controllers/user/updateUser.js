@@ -49,22 +49,25 @@ const constants = require('../../utils/constants');
  *
  */
 module.exports = (req, res) => {
-  const { userId } = req.params;
-  if (!validator.isValidUuid(userId)) {
+  let { user } = req;
+  if (!validator.isValidUuid(user.id)) {
     return res.status(400).json({
       msg: constants.messages.error.INVALID_USER_ID
     });
   }
-  let { name, description, skills } = req.body;
+  let { name, email, lookingForProject, skills } = req.body;
   let userInfo = {};
   if (validator.isValidString(name)) {
     userInfo.name = name.trim();
   }
-  if (validator.isValidString(description)) {
-    userInfo.description = description.trim();
+  if (validator.isValidString(email)) {
+    userInfo.email = email.trim();
+  }
+  if (validator.isValidBoolean(lookingForProject)) {
+    userInfo.lookingForProject = lookingForProject;
   }
   database.users
-    .findById(userId)
+    .findById(user.id)
     .then(userToUpdate => {
       return userToUpdate.update(userInfo).then(updateConfirmation => {
         if (validator.isValidArray(skills)) {
