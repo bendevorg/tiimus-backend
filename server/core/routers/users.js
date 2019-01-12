@@ -6,7 +6,7 @@ const path = require('path');
 
 const controllers = retrieveControllers(path.basename(__filename).split('.')[0]);
 
-//  User API
-router.get('/', middleware, controllers.loggedUserInfo);
+//  Users API
+router.get('/:userId', controllers.userInfo);
 
 module.exports = router;

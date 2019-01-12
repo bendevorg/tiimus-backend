@@ -1,19 +1,25 @@
 /**
- * @api {GET} /user Retrieve users info
- * @apiName Retrieve info
+ * @api {GET} /user Retrieve logged users info
+ * @apiName Retrieve logged users info
  * @apiGroup User
  * @apiVersion 1.0.0
- *
+ * 
  * @apiHeader {String} session User session key
  *
  * @apiSuccess (200) {json} msg Users info.
  * @apiSuccess (200) {String} id Users id.
  * @apiSuccess (200) {String} name Users name.
+ * @apiSuccess (200) {String} email Users email.
+ * @apiSuccess (200) {String} lookingForProject User is looking to join projects.
+ * @apiSuccess (200) {String} avatar Users avatar path.
  * @apiSuccessExample {json} Success-Response:
     "msg": [
         {
           "id": "012a362a-4f32-496f-bf25-d785d4df42ed",
-          "name": "User example"
+          "name": "User example",
+          "email": "example@test.com",
+          "lookingForProject": true,
+          "avatar": "http://avatar.com/avatar.png"
         }
     ]
  * @apiError (401) {String} msg Invalid session message.

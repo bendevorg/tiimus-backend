@@ -18,6 +18,7 @@ module.exports = {
       INVALID_LOGIN: 'You have to be logged in to access this feature.',
       EMAIL_IN_USE: 'This email is already being used',
       INVALID_SKILL_ID: 'Skill id not valid.',
+      USER_NOT_FOUND: 'This user id does not correspond to a valid user.',
       UNEXPECTED_RUNNING: 'An error ocurred while processing your request. Please try again.',
       UNEXPECTED_DB: 'An error ocurred while accessing our database. Please try again.'
     }
