@@ -31,6 +31,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM('user', 'admin'),
       allowNull: true,
       notEmpty: false
+    },
+    avatar: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      notEmpty: true,
+      defaultValue: 'http://www.sapnap.net/images/avatars/otter.png'
     }
   });
 
