@@ -50,8 +50,33 @@ module.exports = (req, res) => {
   return database.users
     .findById(userId, {
       attributes: {
-        exclude: ['password', 'email']
-      }
+        exclude: ['password', 'email', 'createdAt', 'updatedAt'],
+      },
+      include: [
+        {
+          model: database.projects,
+          attributes: ['id', 'name', 'image', 'description'],
+          through: {
+            attributes: ['role'],
+          },
+          include: [
+            {
+              model: database.tags,
+              attributes: ['name'],
+              through: {
+                attributes: []
+              }
+            },
+            {
+              model: database.skills,
+              attributes: ['name'],
+              through: {
+                attributes: []
+              }
+            }
+          ]
+        }
+      ]
     })
     .then(user => {
       if (!user) {
@@ -66,6 +91,7 @@ module.exports = (req, res) => {
     })
     .catch(err => {
       logger.error(err);
+      console.log(err);
       return res.status(500).json({
         msg: constants.messages.error.UNEXPECTED_DB
       });
