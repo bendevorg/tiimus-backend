@@ -60,6 +60,10 @@ module.exports = (req, res) => {
         {
           model: database.skills,
           attributes: ['name']
+        },
+        {
+          model: database.tags,
+          attributes: ['name']
         }
       ]
     })
