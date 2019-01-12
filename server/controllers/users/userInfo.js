@@ -39,7 +39,7 @@ const constants = require('../../utils/constants');
  *
  */
 module.exports = (req, res) => {
-  let { userId } = req.params;
+  const { userId } = req.params;
 
   if (!validator.isValidUuid(userId)) {
     return res.status(404).json({

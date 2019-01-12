@@ -1,6 +1,6 @@
 /**
- * @api {GET} /projects/:projectId Retrieve project by its id
- * @apiName Retrieve project
+ * @api {GET} /projects Retrieve projects
+ * @apiName Retrieve projects
  * @apiGroup Projects
  * @apiVersion 1.0.0
  *
@@ -25,47 +25,24 @@
  */
 const logger = require('../../../tools/logger');
 const database = require('../../models/database');
-const validator = require('../../utils/validator');
 const constants = require('../../utils/constants');
 
 /**
- * Retrieve a project by its id
+ * Retrieve all projects
  *
- * @param {string} req.params.projectId - Project id to retrieve info 
+ * @param {string}
  * @return {object} - Returns the project in a json format
  * @throws {object} - Returns a msg that indicates a failure
  *
  */
 module.exports = (req, res) => {
-  const { projectId } = req.params;
-
-  if (!validator.isValidUuid(projectId)) {
-    return res.status(404).json({
-      msg: constants.messages.error.PROJECT_NOT_FOUND
-    });
-  }
-
   database.projects
-    .findById(projectId, {
-      attributes: ['id', 'name', 'description', 'image'],
-      include: [
-        {
-          model: database.users,
-          attributes: ['id', 'name', 'avatar'],
-          through: {
-            model: database.projects_users,
-            attributes: ['role'],
-          }
-        },
-        {
-          model: database.skills,
-          attributes: ['name']
-        }
-      ]
+    .findAll({
+      attributes: ['id', 'name', 'description', 'image']
     })
-    .then(project => {
+    .then(projects => {
       return res.status(200).json({
-        msg: project
+        msg: projects
       });
     })
     .catch(err => {

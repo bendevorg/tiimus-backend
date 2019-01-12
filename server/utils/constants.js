@@ -19,6 +19,7 @@ module.exports = {
       EMAIL_IN_USE: 'This email is already being used',
       INVALID_SKILL_ID: 'Skill id not valid.',
       USER_NOT_FOUND: 'This user id does not correspond to a valid user.',
+      PROJECT_NOT_FOUND: 'This project id does not correspond to a valid project.',
       UNEXPECTED_RUNNING: 'An error ocurred while processing your request. Please try again.',
       UNEXPECTED_DB: 'An error ocurred while accessing our database. Please try again.'
     }
