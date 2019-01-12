@@ -10,6 +10,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       notEmpty: true
     },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      notEmpty: true,
+      defaultValue: 'http://iconshow.me/media/images/ui/ios7-icons/png/512/game-controller-a.png'
+    },
     description: {
       type: DataTypes.STRING,
       allowNull: false,
