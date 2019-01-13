@@ -35,7 +35,14 @@ module.exports = {
     USER_DATA_ENCRYPT_KEY: process.env.USER_DATA_ENCRYPT_KEY,
     TOKEN_ENCRYPT_KEY: process.env.TOKEN_ENCRYPT_KEY,
     TOKEN_EXPIRATION_IN_SECONDS: 60 * 60 * 24 * 30,
-    STATIC_PATH: 'server/static'
+    STATIC_PATH: 'server/static',
+    IMAGES_PATH: '/static/images/',
+    PROJECT_IMAGE_PLACEHOLDER_PREFIX: 'project-placeholder-',
+    PROJECT_IMAGE_PLACEHOLDER_SUFFIX: '.png',
+    PROJECT_IMAGE_PLACEHOLDER_AMOUNT: 1,
+    USER_IMAGE_PLACEHOLDER_PREFIX: 'user-placeholder-',
+    USER_IMAGE_PLACEHOLDER_SUFFIX: '.png',
+    USER_IMAGE_PLACEHOLDER_AMOUNT: 9
   },
   roles: {
     OWNER: 'owner',

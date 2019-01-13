@@ -63,7 +63,7 @@ module.exports = (req, res) => {
   let projectInfo = { name, description };
 
   if (file)
-    projectInfo.image = file.filename;
+    projectInfo.image = constants.values.IMAGES_PATH + file.filename;
 
   let newProject = database.projects.build(projectInfo);
   newProject
