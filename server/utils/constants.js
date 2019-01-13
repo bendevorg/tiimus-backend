@@ -34,7 +34,8 @@ module.exports = {
     PASSWORD_ENCRYPT_KEY: process.env.PASSWORD_ENCRYPT_KEY,
     USER_DATA_ENCRYPT_KEY: process.env.USER_DATA_ENCRYPT_KEY,
     TOKEN_ENCRYPT_KEY: process.env.TOKEN_ENCRYPT_KEY,
-    TOKEN_EXPIRATION_IN_SECONDS: 60 * 60 * 24 * 30
+    TOKEN_EXPIRATION_IN_SECONDS: 60 * 60 * 24 * 30,
+    STATIC_PATH: 'server/static'
   },
   roles: {
     OWNER: 'owner',

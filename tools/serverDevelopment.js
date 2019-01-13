@@ -10,6 +10,7 @@ const logger = require('./logger');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const app = express();
+const constants = require('../server/utils/constants');
 
 app.use(
   cors({
@@ -19,6 +20,7 @@ app.use(
   })
 );
 app.use(cookieParser());
+app.use('/static', express.static(constants.values.STATIC_PATH));
 app.use('/', router);
 app.use(logger.errorHandler());
 app.use(morgan('tiny'));
