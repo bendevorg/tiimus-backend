@@ -70,6 +70,7 @@ module.exports = (req, res) => {
     avatar = constants.values.IMAGES_PATH + file.filename;
   else {
     avatar =
+      constants.values.IMAGES_PATH +
       constants.values.USER_IMAGE_PLACEHOLDER_PREFIX +
       Math.floor(Math.random() * (constants.values.USER_IMAGE_PLACEHOLDER_AMOUNT - 1)) +
       constants.values.USER_IMAGE_PLACEHOLDER_SUFFIX;

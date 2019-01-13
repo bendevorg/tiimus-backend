@@ -66,6 +66,7 @@ module.exports = (req, res) => {
     image = constants.values.IMAGES_PATH + file.filename;
   else {
     image =
+      constants.values.IMAGES_PATH +
       constants.values.PROJECT_IMAGE_PLACEHOLDER_PREFIX +
       Math.floor(Math.random() * (constants.values.PROJECT_IMAGE_PLACEHOLDER_AMOUNT - 1)) +
       constants.values.PROJECT_IMAGE_PLACEHOLDER_SUFFIX;
