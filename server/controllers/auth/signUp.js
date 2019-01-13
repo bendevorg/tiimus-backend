@@ -37,6 +37,7 @@ const constants = require('../../utils/constants');
  */
 module.exports = (req, res) => {
   let { name, email, password } = req.body;
+  let { file } = req;
   if (!validator.isValidString(name)) {
     return res.status(400).json({
       msg: constants.messages.error.INVALID_NAME
@@ -57,6 +58,7 @@ module.exports = (req, res) => {
   email = email.trim();
   password = encryptor(password, constants.values.PASSWORD_ENCRYPT_KEY);
   const role = 'user';
+  let avatar = '';
 
   if (!password) {
     return res.status(500).json({
@@ -64,7 +66,16 @@ module.exports = (req, res) => {
     });
   }
 
-  const newUser = database.users.build({ name, email, password, role });
+  if (file)
+    avatar = constants.values.IMAGES_PATH + file.filename;
+  else {
+    avatar =
+      constants.values.USER_IMAGE_PLACEHOLDER_PREFIX +
+      Math.floor(Math.random() * (constants.values.USER_IMAGE_PLACEHOLDER_AMOUNT - 1)) +
+      constants.values.USER_IMAGE_PLACEHOLDER_SUFFIX;
+  }
+
+  const newUser = database.users.build({ name, email, password, role, avatar });
   newUser
     .save()
     .then(createdUser => {

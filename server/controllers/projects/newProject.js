@@ -60,18 +60,18 @@ module.exports = (req, res) => {
 
   name = name.trim();
   description = description.trim();
-  let projectInfo = { name, description };
+  let image = '';
 
   if (file)
-    projectInfo.image = constants.values.IMAGES_PATH + file.filename;
+    image = constants.values.IMAGES_PATH + file.filename;
   else {
-    projectInfo.image =
+    image =
       constants.values.PROJECT_IMAGE_PLACEHOLDER_PREFIX +
       Math.floor(Math.random() * (constants.values.PROJECT_IMAGE_PLACEHOLDER_AMOUNT - 1)) +
       constants.values.PROJECT_IMAGE_PLACEHOLDER_SUFFIX;
   }
 
-  let newProject = database.projects.build(projectInfo);
+  let newProject = database.projects.build({ name, description, image });
   newProject
     .save()
     .then(savedProject => {
