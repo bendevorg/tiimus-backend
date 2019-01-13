@@ -65,3 +65,6 @@ typings/
 
 # Visual code
 .DS_Store
+
+# Images
+server/static/
