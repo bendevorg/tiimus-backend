@@ -5,9 +5,10 @@ const path = require('path');
 
 const controllers = retrieveControllers(path.basename(__filename).split('.')[0]);
 const userMiddleware = require('../../controllers/userMiddleware');
+const upload = require('../../utils/upload');
 
 //  Projects API
-router.post('/', userMiddleware, controllers.newProject);
+router.post('/', upload.single('image'), userMiddleware, controllers.newProject);
 router.get('/', controllers.retrieveProjects);
 router.get('/:projectId', controllers.retrieveProject);
 

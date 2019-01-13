@@ -23,7 +23,7 @@
       "description": "Project description example"
     }
  * @apiError (400) {String} msg Error message.
- * @apiErrorExample {json} Error-Response: 
+ * @apiErrorExample {json} Error-Response:
     { "msg": "Name not valid." }
   *
  */
@@ -46,6 +46,7 @@ const insertProjectSkills = require('./insertProjectSkills');
 module.exports = (req, res) => {
   let { user } = req;
   let { name, description, tags, skills } = req.body;
+  let { file } = req;
   if (!validator.isValidString(name)) {
     return res.status(400).json({
       msg: constants.messages.error.INVALID_NAME
@@ -59,8 +60,12 @@ module.exports = (req, res) => {
 
   name = name.trim();
   description = description.trim();
+  let projectInfo = { name, description };
 
-  let newProject = database.projects.build({ name, description });
+  if (file)
+    projectInfo.image = file.filename;
+
+  let newProject = database.projects.build(projectInfo);
   newProject
     .save()
     .then(savedProject => {

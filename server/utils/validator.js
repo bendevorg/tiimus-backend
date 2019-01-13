@@ -1,6 +1,6 @@
 /**
  * Module of validation functions
- * @module controllers/validator
+ * @module utils/validator
  */
 
 const constants = require('./constants');
@@ -76,4 +76,14 @@ exports.isValidArray = arrayToValidate => {
     arrayToValidate instanceof Array && 
     arrayToValidate.length > 0
   );
+};
+
+/**
+ * Validate if the file is a valid image
+ *
+ * @param {array} fileToValidate - File to be validated
+ * @return {boolean} - True case the file is valid and false if it is not
+ */
+exports.isValidImage = fileToValidate => {
+  return constants.regex.image.test(fileToValidate.mimetype);
 };
