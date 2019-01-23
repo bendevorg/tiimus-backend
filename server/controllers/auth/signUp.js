@@ -24,6 +24,7 @@ const database = require('../../models/database');
 const encryptor = require('../../utils/encryptor');
 const generateToken = require('../../utils/generateToken');
 const logger = require('../../../tools/logger');
+const insertUserSkills = require('../user/insertUserSkills');
 const validator = require('../../utils/validator');
 const constants = require('../../utils/constants');
 
@@ -36,7 +37,7 @@ const constants = require('../../utils/constants');
  *
  */
 module.exports = (req, res) => {
-  let { name, email, password } = req.body;
+  let { name, email, password, skills } = req.body;
   let { file } = req;
   if (!validator.isValidString(name)) {
     return res.status(400).json({
@@ -66,25 +67,38 @@ module.exports = (req, res) => {
     });
   }
 
-  if (file)
-    avatar = constants.values.IMAGES_PATH + file.filename;
+  if (file) avatar = constants.values.IMAGES_PATH + file.filename;
   else {
     avatar =
       constants.values.IMAGES_PATH +
       constants.values.USER_IMAGE_PLACEHOLDER_PREFIX +
-      Math.floor(Math.random() * (constants.values.USER_IMAGE_PLACEHOLDER_AMOUNT - 1)) +
+      Math.floor(
+        Math.random() * (constants.values.USER_IMAGE_PLACEHOLDER_AMOUNT - 1)
+      ) +
       constants.values.USER_IMAGE_PLACEHOLDER_SUFFIX;
   }
 
   const newUser = database.users.build({ name, email, password, role, avatar });
   newUser
     .save()
-    .then(createdUser => {
+    .then(async createdUser => {
+      let insertedSkills = await insertUserSkills(createdUser, skills).catch(
+        err => {
+          logger.error(err);
+          return res.status(500).json({
+            msg: constants.messages.error.UNEXPECTED_DB
+          });
+        }
+      );
+
       const userData = {
         id: createdUser.id,
         name: createdUser.name
       };
-      const tokenData = encryptor(userData, constants.values.USER_DATA_ENCRYPT_KEY);
+      const tokenData = encryptor(
+        userData,
+        constants.values.USER_DATA_ENCRYPT_KEY
+      );
       res.cookie(
         'session',
         generateToken(
@@ -95,7 +109,10 @@ module.exports = (req, res) => {
       );
 
       return res.status(201).json({
-        msg: userData
+        msg: {
+          userData,
+          skills: insertedSkills
+        }
       });
     })
     .catch(database.sequelize.UniqueConstraintError, () => {
