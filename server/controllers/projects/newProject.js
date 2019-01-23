@@ -77,11 +77,22 @@ module.exports = (req, res) => {
   newProject
     .save()
     .then(async savedProject => {
+<<<<<<< HEAD
       let insertedUsers = await insertUsers(savedProject, [user.id], constants.roles.OWNER).catch(
         err => {
           logger.error(err);
           return res.status(500).json({
             msg: constants.messages.error.UNEXPECTED_DB
+=======
+      let insertedUsers = await insertUsers(savedProject, [user.id], constants.roles.OWNER, true);
+      if (!validator.isValidArray(tags)) {
+        if (!validator.isValidArray(skills)) {
+          return res.status(200).json({
+            msg: {
+              savedProject,
+              insertedUsers
+            }
+>>>>>>> 425f3a8d5acf7f942b4c21b233aea0759aaca386
           });
         }
       );
