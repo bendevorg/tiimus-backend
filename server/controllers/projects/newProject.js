@@ -75,7 +75,7 @@ module.exports = (req, res) => {
   newProject
     .save()
     .then(async savedProject => {
-      let insertedUsers = await insertUsers(savedProject, [user.id], constants.roles.OWNER);
+      let insertedUsers = await insertUsers(savedProject, [user.id], constants.roles.OWNER, true);
       if (!validator.isValidArray(tags)) {
         if (!validator.isValidArray(skills)) {
           return res.status(200).json({

@@ -11,5 +11,6 @@ const upload = require('../../utils/upload');
 router.post('/', upload.single('image'), userMiddleware, controllers.newProject);
 router.get('/', controllers.retrieveProjects);
 router.get('/:projectId', controllers.retrieveProject);
+router.post('/:projectId/users', userMiddleware, controllers.insertUsers);
 
 module.exports = router;

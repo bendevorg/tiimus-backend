@@ -5,6 +5,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       notEmpty: true,
       defaultValue: 'contributor'
+    },
+    accepted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      notEmpty: true,
+      defaultValue: true
     }
   });
   return ProjectsUsers;

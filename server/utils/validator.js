@@ -87,3 +87,13 @@ exports.isValidArray = arrayToValidate => {
 exports.isValidImage = fileToValidate => {
   return constants.regex.image.test(fileToValidate.mimetype);
 };
+
+/**
+ * Validate if the input is a valid not empty boolean
+ *
+ * @param {boolean} booleanToValidate - Boolean to be validated
+ * @return {boolean} - True case the boolean is valid and false if it is not
+ */
+exports.isValidBoolean = booleanToValidate => {
+  return typeof booleanToValidate === 'boolean';
+};
