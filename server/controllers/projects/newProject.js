@@ -31,7 +31,7 @@ const database = require('../../models/database');
 const logger = require('../../../tools/logger');
 const validator = require('../../utils/validator');
 const constants = require('../../utils/constants');
-const insertUsers = require('./insertUsers');
+const insertUsers = require('./insertProjectUsers');
 const insertProjectTags = require('./insertProjectTags');
 const insertProjectSkills = require('./insertProjectSkills');
 
