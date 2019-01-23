@@ -31,7 +31,7 @@ const database = require('../../models/database');
 const logger = require('../../../tools/logger');
 const validator = require('../../utils/validator');
 const constants = require('../../utils/constants');
-const insertUser = require('./insertUser');
+const insertUsers = require('./insertUsers');
 const insertProjectTags = require('./insertProjectTags');
 const insertProjectSkills = require('./insertProjectSkills');
 
@@ -62,8 +62,7 @@ module.exports = (req, res) => {
   description = description.trim();
   let image = '';
 
-  if (file)
-    image = constants.values.IMAGES_PATH + file.filename;
+  if (file) image = constants.values.IMAGES_PATH + file.filename;
   else {
     image =
       constants.values.IMAGES_PATH +
@@ -75,58 +74,54 @@ module.exports = (req, res) => {
   let newProject = database.projects.build({ name, description, image });
   newProject
     .save()
-    .then(savedProject => {
-      return insertUser(savedProject, user.id, constants.roles.OWNER)
-        .then(userInserted => {
-          if (!validator.isValidArray(tags)) {
-            if (!validator.isValidArray(skills)) {
-              return res.status(200).json({
-                msg: savedProject
-              });
+    .then(async savedProject => {
+      let insertedUsers = await insertUsers(savedProject, [user.id], constants.roles.OWNER);
+      if (!validator.isValidArray(tags)) {
+        if (!validator.isValidArray(skills)) {
+          return res.status(200).json({
+            msg: {
+              savedProject,
+              insertedUsers
             }
-            insertProjectSkills(savedProject, skills)
-              .then(skillInserted => {
-                return res.status(200).json({
-                  msg: {
-                    savedProject,
-                    userInserted,
-                    skillInserted
-                  }
-                });
-              })
-              .catch(err => {
-                return res.status(500).json({
-                  msg: err
-                });
-              });
-          }
-          insertProjectTags(savedProject, tags)
-            .then(tagInserted => {
-              if (!validator.isValidArray(skills)) {
-                return res.status(200).json({
-                  msg: {
-                    savedProject,
-                    userInserted,
-                    tagInserted
-                  }
-                });
+          });
+        }
+        insertProjectSkills(savedProject, skills)
+          .then(skillInserted => {
+            return res.status(200).json({
+              msg: {
+                savedProject,
+                insertedUsers,
+                skillInserted
               }
-              insertProjectSkills(savedProject, skills)
-                .then(skillInserted => {
-                  return res.status(200).json({
-                    msg: {
-                      savedProject,
-                      userInserted,
-                      tagInserted,
-                      skillInserted
-                    }
-                  });
-                })
-                .catch(err => {
-                  return res.status(500).json({
-                    msg: err
-                  });
-                });
+            });
+          })
+          .catch(err => {
+            return res.status(500).json({
+              msg: err
+            });
+          });
+      }
+      insertProjectTags(savedProject, tags)
+        .then(tagInserted => {
+          if (!validator.isValidArray(skills)) {
+            return res.status(200).json({
+              msg: {
+                savedProject,
+                insertedUsers,
+                tagInserted
+              }
+            });
+          }
+          insertProjectSkills(savedProject, skills)
+            .then(skillInserted => {
+              return res.status(200).json({
+                msg: {
+                  savedProject,
+                  insertedUsers,
+                  tagInserted,
+                  skillInserted
+                }
+              });
             })
             .catch(err => {
               return res.status(500).json({
