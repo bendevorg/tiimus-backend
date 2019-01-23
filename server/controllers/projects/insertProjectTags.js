@@ -1,5 +1,10 @@
+const validator = require('../../utils/validator');
+
 module.exports = (project, tags) => {
   return new Promise((resolve, reject) => {
+    if (!validator.isValidArray(tags)) {
+      return resolve([]);
+    }
     project
       .addTags(tags)
       .then(tagInserted => {
