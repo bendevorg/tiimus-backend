@@ -6,11 +6,17 @@ module.exports = (sequelize, DataTypes) => {
       notEmpty: true,
       defaultValue: 'contributor'
     },
-    accepted: {
+    ownerAccepted: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       notEmpty: true,
-      defaultValue: true
+      defaultValue: false
+    },
+    contributorAccepted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      notEmpty: true,
+      defaultValue: false
     }
   });
   return ProjectsUsers;
