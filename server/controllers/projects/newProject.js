@@ -32,8 +32,8 @@ const logger = require('../../../tools/logger');
 const validator = require('../../utils/validator');
 const constants = require('../../utils/constants');
 const insertUsers = require('./insertProjectUsers');
-const insertProjectTags = require('./insertProjectTags');
-const insertProjectSkills = require('./insertProjectSkills');
+const insertTags = require('./insertProjectTags');
+const insertSkills = require('./insertProjectSkills');
 
 /**
  * Add a new project
@@ -67,7 +67,9 @@ module.exports = (req, res) => {
     image =
       constants.values.IMAGES_PATH +
       constants.values.PROJECT_IMAGE_PLACEHOLDER_PREFIX +
-      Math.floor(Math.random() * (constants.values.PROJECT_IMAGE_PLACEHOLDER_AMOUNT - 1)) +
+      Math.floor(
+        Math.random() * (constants.values.PROJECT_IMAGE_PLACEHOLDER_AMOUNT - 1)
+      ) +
       constants.values.PROJECT_IMAGE_PLACEHOLDER_SUFFIX;
   }
 
@@ -75,6 +77,13 @@ module.exports = (req, res) => {
   newProject
     .save()
     .then(async savedProject => {
+<<<<<<< HEAD
+      let insertedUsers = await insertUsers(savedProject, [user.id], constants.roles.OWNER).catch(
+        err => {
+          logger.error(err);
+          return res.status(500).json({
+            msg: constants.messages.error.UNEXPECTED_DB
+=======
       let insertedUsers = await insertUsers(savedProject, [user.id], constants.roles.OWNER, true);
       if (!validator.isValidArray(tags)) {
         if (!validator.isValidArray(skills)) {
@@ -83,57 +92,32 @@ module.exports = (req, res) => {
               savedProject,
               insertedUsers
             }
+>>>>>>> 425f3a8d5acf7f942b4c21b233aea0759aaca386
           });
         }
-        insertProjectSkills(savedProject, skills)
-          .then(skillInserted => {
-            return res.status(200).json({
-              msg: {
-                savedProject,
-                insertedUsers,
-                skillInserted
-              }
-            });
-          })
-          .catch(err => {
-            return res.status(500).json({
-              msg: err
-            });
-          });
-      }
-      insertProjectTags(savedProject, tags)
-        .then(tagInserted => {
-          if (!validator.isValidArray(skills)) {
-            return res.status(200).json({
-              msg: {
-                savedProject,
-                insertedUsers,
-                tagInserted
-              }
-            });
-          }
-          insertProjectSkills(savedProject, skills)
-            .then(skillInserted => {
-              return res.status(200).json({
-                msg: {
-                  savedProject,
-                  insertedUsers,
-                  tagInserted,
-                  skillInserted
-                }
-              });
-            })
-            .catch(err => {
-              return res.status(500).json({
-                msg: err
-              });
-            });
-        })
-        .catch(err => {
-          return res.status(500).json({
-            msg: err
-          });
+      );
+      let insertedTags = await insertTags(savedProject, tags).catch(err => {
+        logger.error(err);
+        return res.status(500).json({
+          msg: constants.messages.error.UNEXPECTED_DB
         });
+      });
+      let insertedSkills = await insertSkills(savedProject, skills).catch(
+        err => {
+          logger.error(err);
+          return res.status(500).json({
+            msg: constants.messages.error.UNEXPECTED_DB
+          });
+        }
+      );
+      return res.status(200).json({
+        msg: {
+          savedProject,
+          Users: insertedUsers,
+          tags: insertedTags,
+          skills: insertedSkills
+        }
+      });
     })
     .catch(err => {
       logger.error(err);
