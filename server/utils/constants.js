@@ -16,6 +16,7 @@ module.exports = {
       INVALID_DESCRIPTION: 'Description not valid',
       INVALID_USER: 'This user/password does not correspond to a valid user.',
       INVALID_LOGIN: 'You have to be logged in to access this feature.',
+      INVALID_USERS: 'Users sent are not valid',
       EMAIL_IN_USE: 'This email is already being used',
       INVALID_PROJECT_ID: 'Project id not valid.',
       INVALID_SKILL_ID: 'Skill id not valid.',
