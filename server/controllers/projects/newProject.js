@@ -81,6 +81,7 @@ module.exports = (req, res) => {
         savedProject,
         [user.id],
         constants.roles.OWNER,
+        true,
         true
       ).catch(err => {
         logger.error(err);
