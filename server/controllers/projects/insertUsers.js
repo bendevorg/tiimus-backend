@@ -92,7 +92,7 @@ module.exports = (req, res) => {
           msg: constants.messages.error.NOT_OWNER
         });
       }
-      let insertedUsers = await insertUsers(project, users, constants.roles.CONTRIBUTOR, false);
+      let insertedUsers = await insertUsers(project, users, constants.roles.CONTRIBUTOR, true, false);
       return res.status(200).json({
         msg: project
       });
