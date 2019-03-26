@@ -12,7 +12,9 @@ const constants = require('./constants');
  * @return {boolean} - True case the string is valid and false if it is not
  */
 exports.isValidString = stringToValidate => {
-  return typeof stringToValidate === 'string' && stringToValidate.trim().length > 0;
+  return (
+    typeof stringToValidate === 'string' && stringToValidate.trim().length > 0
+  );
 };
 
 /**
@@ -71,11 +73,7 @@ exports.isValidInteger = integerToValidate => {
  * @return {boolean} - True case the array is valid and false if it is not
  */
 exports.isValidArray = arrayToValidate => {
-  return (
-    arrayToValidate && 
-    arrayToValidate instanceof Array && 
-    arrayToValidate.length > 0
-  );
+  return arrayToValidate && arrayToValidate instanceof Array;
 };
 
 /**
