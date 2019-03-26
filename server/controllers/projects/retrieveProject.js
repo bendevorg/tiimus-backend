@@ -55,6 +55,10 @@ module.exports = (req, res) => {
           through: {
             model: database.projects_users,
             attributes: ['role'],
+            where: {
+              ownerAccepted: true,
+              contributorAccepted: true
+            }
           }
         },
         {

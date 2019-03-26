@@ -81,6 +81,7 @@ module.exports = (req, res) => {
         savedProject,
         [user.id],
         constants.roles.OWNER,
+        true,
         true
       ).catch(err => {
         logger.error(err);
@@ -102,13 +103,14 @@ module.exports = (req, res) => {
           });
         }
       );
+      let project = {
+        ...savedProject.dataValues,
+        users: insertedUsers,
+        tags: insertedTags,
+        skills: insertedSkills
+      };
       return res.status(200).json({
-        msg: {
-          savedProject,
-          Users: insertedUsers,
-          tags: insertedTags,
-          skills: insertedSkills
-        }
+        msg: project
       });
     })
     .catch(err => {

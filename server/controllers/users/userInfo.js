@@ -33,7 +33,7 @@ const constants = require('../../utils/constants');
 /**
  * Retrieve user info based on user Id
  *
- * @param {string} req.params.userId - User id to retrieve info 
+ * @param {string} req.params.userId - User id to retrieve info
  * @return {object} - Returns the user info in a json format
  * @throws {object} - Returns a msg that indicates a failure
  *
@@ -50,14 +50,14 @@ module.exports = (req, res) => {
   return database.users
     .findById(userId, {
       attributes: {
-        exclude: ['password', 'email', 'createdAt', 'updatedAt'],
+        exclude: ['password', 'email', 'createdAt', 'updatedAt']
       },
       include: [
         {
           model: database.projects,
           attributes: ['id', 'name', 'image', 'description'],
           through: {
-            attributes: ['role'],
+            attributes: ['role']
           },
           include: [
             {

@@ -3,7 +3,11 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 
 const router = express.Router();
-router.use(bodyParser.json());
+router.use(bodyParser.json({
+  parameterLimit: 100000,
+  limit: '50mb',
+  extended: true
+}));
 
 const routersPath = process.cwd() + '/server/core/routers';
 

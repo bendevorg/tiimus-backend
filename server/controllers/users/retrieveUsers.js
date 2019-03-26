@@ -38,16 +38,16 @@ const constants = require('../../utils/constants');
 module.exports = (req, res) => {
   database.users
     .findAll({
-      attributes: ['id', 'name', 'lookingForProject', 'avatar']
-      // include: [
-      //   {
-      //     model: database.skills,
-      //     attributes: ['name'],
-      //     through: {
-      //       attributes: []
-      //     }
-      //   }
-      // ]
+      attributes: ['id', 'name', 'lookingForProject', 'avatar'],
+      include: [
+        {
+          model: database.skills,
+          attributes: ['name'],
+          through: {
+            attributes: []
+          }
+        }
+      ]
     })
     .then(users => {
       return res.status(200).json({

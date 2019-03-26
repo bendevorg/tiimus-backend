@@ -51,6 +51,11 @@ module.exports = (req, res) => {
       msg: constants.messages.error.INVALID_PROJECT_ID
     });
   }
+  if (!validator.isValidArray(users)) {
+    return res.status(400).json({
+      msg: constants.messages.error.INVALID_USERS
+    });
+  }
 
   return database.projects
     .findById(projectId, {
@@ -67,6 +72,11 @@ module.exports = (req, res) => {
       ]
     })
     .then(async project => {
+      if (!project) {
+        return res.status(400).json({
+          msg: constants.messages.error.INVALID_PROJECT_ID
+        });
+      }
       let validOwner = false;
       for (let i = 0; i < project.users.length; i++) {
         if (users.includes(project.users[i].id)) {
@@ -82,7 +92,7 @@ module.exports = (req, res) => {
           msg: constants.messages.error.NOT_OWNER
         });
       }
-      let insertedUsers = await insertUsers(project, users, constants.roles.CONTRIBUTOR, false);
+      let insertedUsers = await insertUsers(project, users, constants.roles.CONTRIBUTOR, true, false);
       return res.status(200).json({
         msg: project
       });
