@@ -3,14 +3,22 @@ const router = express.Router();
 const retrieveControllers = require('../../utils/retrieveControllers');
 const path = require('path');
 
-const controllers = retrieveControllers(path.basename(__filename).split('.')[0]);
+const controllers = retrieveControllers(
+  path.basename(__filename).split('.')[0]
+);
 const userMiddleware = require('../../controllers/userMiddleware');
 const upload = require('../../utils/upload');
 
 //  Projects API
-router.post('/', upload.single('image'), userMiddleware, controllers.newProject);
+router.post(
+  '/',
+  upload.single('image'),
+  userMiddleware,
+  controllers.newProject
+);
 router.get('/', controllers.retrieveProjects);
 router.get('/:projectId', controllers.retrieveProject);
 router.post('/:projectId/users', userMiddleware, controllers.insertUsers);
+router.patch('/:projectId', upload.single('image'), controllers.editProject);
 
 module.exports = router;

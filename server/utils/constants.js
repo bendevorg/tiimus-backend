@@ -14,18 +14,24 @@ module.exports = {
       INVALID_PASSWORD: 'Password not valid.',
       INVALID_NAME: 'Name not valid.',
       INVALID_DESCRIPTION: 'Description not valid',
+      INVALID_TAGS: 'Tags not valid.',
+      INVALID_SKILLS: 'Skills not valid.',
       INVALID_USER: 'This user/password does not correspond to a valid user.',
       INVALID_LOGIN: 'You have to be logged in to access this feature.',
       INVALID_USERS: 'Users sent are not valid',
       EMAIL_IN_USE: 'This email is already being used',
       INVALID_PROJECT_ID: 'Project id not valid.',
       INVALID_SKILL_ID: 'Skill id not valid.',
-      USER_ALREADY_JOINED: 'One or more users sent has already joined the project.',
+      USER_ALREADY_JOINED:
+        'One or more users sent has already joined the project.',
       NOT_OWNER: 'You have to be owner of this project to do this action.',
       USER_NOT_FOUND: 'This user id does not correspond to a valid user.',
-      PROJECT_NOT_FOUND: 'This project id does not correspond to a valid project.',
-      UNEXPECTED_RUNNING: 'An error ocurred while processing your request. Please try again.',
-      UNEXPECTED_DB: 'An error ocurred while accessing our database. Please try again.'
+      PROJECT_NOT_FOUND:
+        'This project id does not correspond to a valid project.',
+      UNEXPECTED_RUNNING:
+        'An error ocurred while processing your request. Please try again.',
+      UNEXPECTED_DB:
+        'An error ocurred while accessing our database. Please try again.'
     }
   },
   regex: {

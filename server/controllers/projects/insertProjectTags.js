@@ -5,6 +5,7 @@ module.exports = (project, tags) => {
     if (!validator.isValidArray(tags)) {
       return resolve([]);
     }
+    console.log(tags);
     project
       .addTags(tags)
       .then(tagInserted => {
