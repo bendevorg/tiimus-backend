@@ -83,8 +83,7 @@ exports.isValidArray = arrayToValidate => {
  * @return {boolean} - True case the file is valid and false if it is not
  */
 exports.isValidImage = fileToValidate => {
-  console.log(constants.regex.image.test(fileToValidate.mimetype));
-  return constants.regex.image.test(fileToValidate.mimetype);
+  return fileToValidate && constants.regex.image.test(fileToValidate.mimetype);
 };
 
 /**
