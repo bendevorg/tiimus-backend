@@ -19,12 +19,12 @@ module.exports = (req, res) => {
       msg: constants.messages.error.INVALID_PROJECT_ID
     });
   }
-  if (!validator.isValidArray(tags)) {
+  if (!validator.isValidUuidArray(tags)) {
     return res.status(400).json({
       msg: constants.messages.error.INVALID_TAGS
     });
   }
-  if (!validator.isValidArray(skills)) {
+  if (!validator.isValidUuidArray(skills)) {
     return res.status(400).json({
       msg: constants.messages.error.INVALID_SKILLS
     });

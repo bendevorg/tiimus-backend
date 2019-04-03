@@ -2,7 +2,7 @@ const validator = require('../../utils/validator');
 
 module.exports = (project, skills) => {
   return new Promise((resolve, reject) => {
-    if (!validator.isValidArray(skills)) {
+    if (!validator.isValidUuidArray(skills)) {
       return resolve([]);
     }
     project

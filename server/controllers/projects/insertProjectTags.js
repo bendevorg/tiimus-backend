@@ -2,8 +2,7 @@ const validator = require('../../utils/validator');
 
 module.exports = (project, tags) => {
   return new Promise((resolve, reject) => {
-    console.log('tags :', tags);
-    if (!validator.isValidArray(tags)) {
+    if (!validator.isValidUuidArray(tags)) {
       return resolve([]);
     }
     project

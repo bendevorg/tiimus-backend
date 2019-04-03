@@ -77,6 +77,21 @@ exports.isValidArray = arrayToValidate => {
 };
 
 /**
+ * Validate if the input is a valid uuid array
+ *
+ * @param {array} arrayToValidate - Uuid array to be validated
+ * @return {boolean} - True case the array is valid and false if it is not
+ */
+exports.isValidUuidArray = arrayToValidate => {  
+  return arrayToValidate && 
+    arrayToValidate instanceof Array &&
+    arrayToValidate.every(value => {
+      return constants.regex.uuid.test(value);
+    });
+};
+
+
+/**
  * Validate if the file is a valid image
  *
  * @param {array} fileToValidate - File to be validated
