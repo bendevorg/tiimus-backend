@@ -6,7 +6,7 @@ module.exports = (project, skills) => {
       return resolve([]);
     }
     project
-      .addSkills(skills)
+      .setSkills(skills)
       .then(skillInserted => {
         return resolve(skillInserted);
       })
