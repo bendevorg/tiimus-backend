@@ -3,9 +3,7 @@ const logger = require('../../../tools/logger');
 const validator = require('../../utils/validator');
 const constants = require('../../utils/constants');
 const insertTags = require('./insertProjectTags');
-const deleteTags = require('./deleteProjectTags');
 const insertSkills = require('./insertProjectSkills');
-const deleteSkills = require('./deleteProjectSkills');
 
 module.exports = (req, res) => {
   const { projectId } = req.params;
