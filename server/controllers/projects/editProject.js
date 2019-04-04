@@ -54,10 +54,28 @@ module.exports = (req, res) => {
           through: {
             attributes: []
           }
+        },
+        {
+          model: database.users,
+          attributes: ['id'],
+          through: {
+            model: database.projects_users,
+            attributes: ['role']
+          }
         }
       ]
     })
     .then(async updatedProject => {
+      let isOwner = false;
+      updatedProject.users.forEach(currentUser => {
+        if (currentUser.id === user.id && currentUser.projects_users.role === 'owner')
+          isOwner = true;
+      });
+      if (!isOwner) {
+        return res.status(401).json({
+          msg: constants.messages.error.NOT_OWNER
+        });
+      }
       await insertTags(updatedProject, tags).catch(
         err => {
           logger.error(err);

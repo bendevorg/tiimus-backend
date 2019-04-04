@@ -19,6 +19,6 @@ router.post(
 router.get('/', controllers.retrieveProjects);
 router.get('/:projectId', controllers.retrieveProject);
 router.post('/:projectId/users', userMiddleware, controllers.insertUsers);
-router.patch('/:projectId', upload.single('image'), controllers.editProject);
+router.patch('/:projectId', userMiddleware, upload.single('image'), controllers.editProject);
 
 module.exports = router;
