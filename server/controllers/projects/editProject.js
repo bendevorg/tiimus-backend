@@ -7,10 +7,10 @@ const insertSkills = require('./insertProjectSkills');
 
 module.exports = (req, res) => {
   const { projectId } = req.params;
-  let { user } = req; /* talvez usar para validar se é o dono */
+  let { user } = req;
   let { name, description, tags, skills, users } = req.body;
   let { file } = req;
-  var fieldsToUpdate = {};
+  let fieldsToUpdate = {};
 
   if (!validator.isValidUuid(projectId)) {
     return res.status(400).json({

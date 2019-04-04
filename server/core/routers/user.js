@@ -8,5 +8,6 @@ const controllers = retrieveControllers(path.basename(__filename).split('.')[0])
 
 //  User API
 router.get('/', middleware, controllers.loggedUserInfo);
+router.patch('/', middleware, controllers.editUser);
 
 module.exports = router;
