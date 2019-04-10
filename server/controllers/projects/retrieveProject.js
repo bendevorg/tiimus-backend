@@ -63,14 +63,14 @@ module.exports = (req, res) => {
         },
         {
           model: database.skills,
-          attributes: ['name'],
+          attributes: ['id', 'name'],
           through: {
             attributes: []
           }
         },
         {
           model: database.tags,
-          attributes: ['name'],
+          attributes: ['id', 'name'],
           through: {
             attributes: []
           }
