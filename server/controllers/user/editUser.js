@@ -15,6 +15,7 @@ module.exports = (req, res) => {
       msg: constants.messages.error.INVALID_USER
     });
   }
+
   if (!validator.isValidUuidArray(skills)) {
     return res.status(400).json({
       msg: constants.messages.error.INVALID_SKILLS
@@ -44,14 +45,12 @@ module.exports = (req, res) => {
       ]
     })
     .then(async updatedUser => {
-      await insertSkills(updatedUser, skills).catch(
-        err => {
-          logger.error(err);
-          return res.status(500).json({
-            msg: constants.messages.error.UNEXPECTED_DB
-          });
-        }
-      );
+      await insertSkills(updatedUser, skills).catch(err => {
+        logger.error(err);
+        return res.status(500).json({
+          msg: constants.messages.error.UNEXPECTED_DB
+        });
+      });
       for (let key in fieldsToUpdate) {
         updatedUser[key] = fieldsToUpdate[key];
       }
