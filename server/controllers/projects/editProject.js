@@ -9,7 +9,6 @@ module.exports = (req, res) => {
   const { projectId } = req.params;
   let { user } = req;
   let { name, description, tags, skills, users } = req.body;
-  console.log('req.body :', req.body);
   let { file } = req;
   let fieldsToUpdate = {};
 
@@ -117,9 +116,7 @@ module.exports = (req, res) => {
         })
         .then(savedProject => {
           return res.status(200).json({
-            msg: {
-              savedProject
-            }
+            msg: savedProject
           });
         })
         .catch(err => {
