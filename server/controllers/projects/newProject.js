@@ -32,8 +32,8 @@ const logger = require('../../../tools/logger');
 const validator = require('../../utils/validator');
 const constants = require('../../utils/constants');
 const insertUsers = require('./insertProjectUsers');
-const insertTags = require('./insertProjectTags');
-const insertSkills = require('./insertProjectSkills');
+const insertTags = require('../../utils/insertTags');
+const insertSkills = require('../../utils/insertSkills');
 
 /**
  * Add a new project

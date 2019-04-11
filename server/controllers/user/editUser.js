@@ -2,7 +2,7 @@ const database = require('../../models/database');
 const logger = require('../../../tools/logger');
 const validator = require('../../utils/validator');
 const constants = require('../../utils/constants');
-const insertSkills = require('../projects/insertProjectSkills');
+const insertSkills = require('../../utils/insertSkills');
 
 module.exports = (req, res) => {
   let { user } = req;

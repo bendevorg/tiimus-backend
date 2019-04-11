@@ -1,16 +1,16 @@
-const validator = require('../../utils/validator');
+const validator = require('./validator');
 
-module.exports = (project, tags) => {
+module.exports = (modelToInsert, tags) => {
   return new Promise((resolve, reject) => {
     if (validator.isEmptyArray(tags)) {
       tags = [];
     } else if (!validator.isValidUuidArray(tags)) {
       return resolve();
     }
-    project
+    modelToInsert
       .setTags(tags)
-      .then(tagInserted => {
-        return resolve(tagInserted);
+      .then(tagsInserted => {
+        return resolve(tagsInserted);
       })
       .catch(err => {
         return reject(err);

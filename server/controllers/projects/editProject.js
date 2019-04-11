@@ -2,8 +2,8 @@ const database = require('../../models/database');
 const logger = require('../../../tools/logger');
 const validator = require('../../utils/validator');
 const constants = require('../../utils/constants');
-const insertProjectTags = require('./insertProjectTags');
-const insertProjectSkills = require('./insertProjectSkills');
+const insertTags = require('../../utils/insertTags');
+const insertSkills = require('../../utils/insertSkills');
 
 module.exports = (req, res) => {
   const { projectId } = req.params;
@@ -76,7 +76,7 @@ module.exports = (req, res) => {
           msg: constants.messages.error.NOT_OWNER
         });
       }
-      await insertProjectTags(updatedProject, tags).catch(
+      await insertTags(updatedProject, tags).catch(
         err => {
           logger.error(err);
           return res.status(500).json({
@@ -84,7 +84,7 @@ module.exports = (req, res) => {
           });
         }
       );
-      await insertProjectSkills(updatedProject, skills).catch(
+      await insertSkills(updatedProject, skills).catch(
         err => {
           logger.error(err);
           return res.status(500).json({
