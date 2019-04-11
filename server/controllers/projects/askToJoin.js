@@ -76,7 +76,10 @@ module.exports = (req, res) => {
         msg: constants.messages.info.REQUEST_SENT
       });
       const owner = project.users.find(user => user.projects_users.role === constants.roles.OWNER);
-      return sendEmail(owner, user, project).catch(err => {
+      const subject = 'You have a new request!';
+      const htmlBody = `<b><a href="http://localhost:3339/users/${user.id}">${user.name}</a> is requesting to join <a href="http://localhost:3339/projects/${project.id}">${project.name}</a></b>
+      <br/><br/><a href="http://localhost:3339/"> Click here </a> to accept.`;
+      return sendEmail(owner.email, subject, htmlBody).catch(err => {
         logger.error(err);
       });
     })
