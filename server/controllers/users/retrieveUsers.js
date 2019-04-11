@@ -36,6 +36,13 @@ const constants = require('../../utils/constants');
  *
  */
 module.exports = (req, res) => {
+  const { lookingForProject } = req.query;
+  let filters = {};
+
+  if (lookingForProject) {
+    filters.lookingForProject = lookingForProject;
+  }
+
   database.users
     .findAll({
       attributes: ['id', 'name', 'lookingForProject', 'avatar'],
@@ -47,7 +54,8 @@ module.exports = (req, res) => {
             attributes: []
           }
         }
-      ]
+      ],
+      where: filters
     })
     .then(users => {
       return res.status(200).json({
