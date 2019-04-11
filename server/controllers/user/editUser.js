@@ -16,7 +16,7 @@ module.exports = (req, res) => {
     });
   }
 
-  if (!validator.isValidUuidArray(skills)) {
+  if (!validator.isEmptyArray(skills) && !validator.isValidUuidArray(skills)) {
     return res.status(400).json({
       msg: constants.messages.error.INVALID_SKILLS
     });
