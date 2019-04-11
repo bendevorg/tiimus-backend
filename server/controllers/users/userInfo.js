@@ -75,6 +75,13 @@ module.exports = (req, res) => {
               }
             }
           ]
+        },
+        {
+          model: database.skills,
+          attributes: ['id', 'name'],
+          through: {
+            attributes: []
+          }
         }
       ]
     })
