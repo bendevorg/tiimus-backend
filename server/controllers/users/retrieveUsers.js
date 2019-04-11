@@ -42,7 +42,7 @@ module.exports = (req, res) => {
       include: [
         {
           model: database.skills,
-          attributes: ['name'],
+          attributes: ['id', 'name'],
           through: {
             attributes: []
           }
