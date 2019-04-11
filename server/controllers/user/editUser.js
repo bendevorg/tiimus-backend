@@ -68,9 +68,7 @@ module.exports = (req, res) => {
         })
         .then(savedUser => {
           return res.status(200).json({
-            msg: {
-              savedUser
-            }
+            msg: savedUser
           });
         })
         .catch(err => {

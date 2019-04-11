@@ -35,8 +35,17 @@ module.exports = (req, res, next) => {
   return database.users
     .findById(userData.id, {
       attributes: {
-        exclude: ['password']
-      }
+        exclude: ['password', 'createdAt', 'updatedAt']
+      },
+      include: [
+        {
+          model: database.skills,
+          attributes: ['id', 'name'],
+          through: {
+            attributes: []
+          }
+        }
+      ]
     })
     .then(user => {
       if (!user) {
