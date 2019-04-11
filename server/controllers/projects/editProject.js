@@ -2,8 +2,8 @@ const database = require('../../models/database');
 const logger = require('../../../tools/logger');
 const validator = require('../../utils/validator');
 const constants = require('../../utils/constants');
-const insertTags = require('./insertProjectTags');
-const insertSkills = require('./insertProjectSkills');
+const insertProjectTags = require('./insertProjectTags');
+const insertProjectSkills = require('./insertProjectSkills');
 
 module.exports = (req, res) => {
   const { projectId } = req.params;
@@ -17,12 +17,12 @@ module.exports = (req, res) => {
       msg: constants.messages.error.INVALID_PROJECT_ID
     });
   }
-  if (!validator.isValidUuidArray(tags)) {
+  if (!validator.isEmptyArray(tags) && !validator.isValidUuidArray(tags)) {
     return res.status(400).json({
       msg: constants.messages.error.INVALID_TAGS
     });
   }
-  if (!validator.isValidUuidArray(skills)) {
+  if (!validator.isEmptyArray(skills) & !validator.isValidUuidArray(skills)) {
     return res.status(400).json({
       msg: constants.messages.error.INVALID_SKILLS
     });
@@ -76,7 +76,7 @@ module.exports = (req, res) => {
           msg: constants.messages.error.NOT_OWNER
         });
       }
-      await insertTags(updatedProject, tags).catch(
+      await insertProjectTags(updatedProject, tags).catch(
         err => {
           logger.error(err);
           return res.status(500).json({
@@ -84,7 +84,7 @@ module.exports = (req, res) => {
           });
         }
       );
-      await insertSkills(updatedProject, skills).catch(
+      await insertProjectSkills(updatedProject, skills).catch(
         err => {
           logger.error(err);
           return res.status(500).json({

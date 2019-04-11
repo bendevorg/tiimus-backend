@@ -90,6 +90,17 @@ exports.isValidUuidArray = arrayToValidate => {
     });
 };
 
+/**
+ * Validate if the input is an empty array
+ *
+ * @param {array} arrayToValidate - Array to be validated
+ * @return {boolean} - True case the array is empty and false if it is not
+ */
+exports.isEmptyArray = arrayToValidate => {  
+  return arrayToValidate && 
+    arrayToValidate instanceof Array &&
+    arrayToValidate.reduce((a, b) => a + b) === '';
+};
 
 /**
  * Validate if the file is a valid image
