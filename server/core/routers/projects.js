@@ -20,5 +20,6 @@ router.get('/', controllers.retrieveProjects);
 router.get('/:projectId', controllers.retrieveProject);
 router.post('/:projectId/users', userMiddleware, controllers.insertUsers);
 router.patch('/:projectId', userMiddleware, upload.single('image'), controllers.editProject);
+router.post('/:projectId/ask_to_join', userMiddleware, controllers.askToJoin);
 
 module.exports = router;

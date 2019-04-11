@@ -27,6 +27,7 @@
     "express": "^4.14.0",
     "jsonwebtoken": "8.3.0",
     "multer": "1.4.1",
+    "nodemailer": "6.1.0",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
     "rollbar": "^2.2.7",

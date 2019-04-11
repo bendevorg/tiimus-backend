@@ -7,7 +7,8 @@ module.exports = {
     info: {
       USER_CREATED: 'User created.',
       USER_LOGGED: 'User logged.',
-      USER_LOGGED_OUT: 'User logged out.'
+      USER_LOGGED_OUT: 'User logged out.',
+      REQUEST_SENT: 'Request sent.'
     },
     error: {
       INVALID_EMAIL: 'E-mail not valid.',
