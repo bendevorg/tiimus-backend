@@ -82,8 +82,8 @@ exports.isValidArray = arrayToValidate => {
  * @param {array} arrayToValidate - Uuid array to be validated
  * @return {boolean} - True case the array is valid and false if it is not
  */
-exports.isValidUuidArray = arrayToValidate => {  
-  return arrayToValidate && 
+exports.isValidUuidArray = arrayToValidate => {
+  return arrayToValidate &&
     arrayToValidate instanceof Array &&
     arrayToValidate.every(value => {
       return constants.regex.uuid.test(value);
@@ -96,8 +96,8 @@ exports.isValidUuidArray = arrayToValidate => {
  * @param {array} arrayToValidate - Array to be validated
  * @return {boolean} - True case the array is empty and false if it is not
  */
-exports.isEmptyArray = arrayToValidate => {  
-  return arrayToValidate && 
+exports.isEmptyArray = arrayToValidate => {
+  return arrayToValidate &&
     arrayToValidate instanceof Array &&
     arrayToValidate.reduce((a, b) => a + b) === '';
 };

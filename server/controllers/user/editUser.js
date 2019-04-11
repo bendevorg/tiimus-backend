@@ -24,8 +24,8 @@ module.exports = (req, res) => {
   if (validator.isValidString(name)) {
     fieldsToUpdate.name = name.trim();
   }
-  if (validator.isValidBoolean(lookingForProject)) {
-    fieldsToUpdate.lookingForProject = lookingForProject;
+  if (validator.isValidString(lookingForProject)) {
+    fieldsToUpdate.lookingForProject = lookingForProject.toLowerCase() === 'true';
   }
   if (validator.isValidImage(file)) {
     fieldsToUpdate.avatar = constants.values.IMAGES_PATH + file.filename;
