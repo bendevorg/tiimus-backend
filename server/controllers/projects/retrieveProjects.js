@@ -25,6 +25,7 @@
  */
 const logger = require('../../../tools/logger');
 const database = require('../../models/database');
+const validator = require('../../utils/validator');
 const constants = require('../../utils/constants');
 
 /**
@@ -36,6 +37,20 @@ const constants = require('../../utils/constants');
  *
  */
 module.exports = (req, res) => {
+  const { lookingForUser } = req.query;
+  let filters = {
+    projects: null,
+    skills: null,
+    tags: null
+  };
+
+  if (validator.isValidString(lookingForUser) && lookingForUser.toLowerCase() === 'true') {
+    filters.skills = {};
+    filters.skills.id = {
+      [database.Sequelize.Op.ne]: null
+    };
+  }
+
   database.projects
     .findAll({
       attributes: ['id', 'name', 'description', 'image'],
@@ -45,16 +60,19 @@ module.exports = (req, res) => {
           attributes: ['name'],
           through: {
             attributes: []
-          }
+          },
+          where: filters.skills
         },
         {
           model: database.tags,
           attributes: ['name'],
           through: {
             attributes: []
-          }
+          },
+          where: filters.tags
         }
-      ]
+      ],
+      where: filters.projects
     })
     .then(projects => {
       return res.status(200).json({
