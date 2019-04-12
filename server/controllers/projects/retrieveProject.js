@@ -38,11 +38,16 @@ const constants = require('../../utils/constants');
  */
 module.exports = (req, res) => {
   const { projectId } = req.params;
+  const { user } = req;
 
   if (!validator.isValidUuid(projectId)) {
     return res.status(404).json({
       msg: constants.messages.error.PROJECT_NOT_FOUND
     });
+  }
+  let userAttributes = ['id', 'name', 'avatar'];
+  if (user && user.id) {
+    userAttributes.push('email');
   }
 
   database.projects
@@ -51,7 +56,7 @@ module.exports = (req, res) => {
       include: [
         {
           model: database.users,
-          attributes: ['id', 'name', 'avatar'],
+          attributes: userAttributes,
           through: {
             model: database.projects_users,
             attributes: ['role'],
