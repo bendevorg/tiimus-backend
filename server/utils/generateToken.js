@@ -2,6 +2,7 @@
  * Module to generate a token
  * @module utils/generateToken
  */
+const encryptor = require('./encryptor');
 const jwt = require('jsonwebtoken');
 
 /**
@@ -14,14 +15,15 @@ const jwt = require('jsonwebtoken');
  * @throws {boolean} - Returns false that indicates a fail
  *
  */
-module.exports = (tokenData, key, expirationTime) => {
-  if (!tokenData || !key || !expirationTime) return false;
+module.exports = (data, dataKey, tokenKey, expirationTime) => {
+  if (!data || !dataKey || !tokenKey || !expirationTime) return false;
 
+  const tokenData = encryptor(data, dataKey);
   const token = jwt.sign(
     {
       token: tokenData
     },
-    key,
+    tokenKey,
     {
       expiresIn: expirationTime
     }

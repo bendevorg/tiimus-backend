@@ -16,7 +16,6 @@
   *
  */
 const database = require('../../models/database');
-const encryptor = require('../../utils/encryptor');
 const decryptor = require('../../utils/decryptor');
 const generateToken = require('../../utils/generateToken');
 const logger = require('../../../tools/logger');
@@ -70,11 +69,11 @@ module.exports = (req, res) => {
         id: user.id,
         name: user.name
       };
-      const tokenData = encryptor(userData, constants.values.USER_DATA_ENCRYPT_KEY);
       res.cookie(
         'session',
         generateToken(
-          tokenData,
+          { id: user.id, name: user.name },
+          constants.values.USER_DATA_ENCRYPT_KEY,
           constants.values.TOKEN_ENCRYPT_KEY,
           constants.values.TOKEN_EXPIRATION_IN_SECONDS
         ),

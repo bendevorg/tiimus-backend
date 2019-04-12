@@ -90,19 +90,15 @@ module.exports = (req, res) => {
           });
         }
       );
-
       const userData = {
         id: createdUser.id,
         name: createdUser.name
       };
-      const tokenData = encryptor(
-        userData,
-        constants.values.USER_DATA_ENCRYPT_KEY
-      );
       res.cookie(
         'session',
         generateToken(
-          tokenData,
+          userData,
+          constants.values.USER_DATA_ENCRYPT_KEY,
           constants.values.TOKEN_ENCRYPT_KEY,
           constants.values.TOKEN_EXPIRATION_IN_SECONDS
         )

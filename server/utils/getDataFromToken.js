@@ -15,10 +15,14 @@ const validator = require('./validator');
  * @throws {boolean} - Returns false that indicates a fail
  *
  */
-module.exports = (data, key) => {
-  if (!validator.isValidString(data) || !validator.isValidString(key)) {
+module.exports = (data, dataKey, tokenKey) => {
+  if (
+    !validator.isValidString(data) ||
+    !validator.isValidString(dataKey) ||
+    !validator.isValidString(tokenKey)
+  ) {
     return null;
   }
 
-  return tokenDecryptor(data, key);
+  return tokenDecryptor(data, dataKey, tokenKey);
 };
