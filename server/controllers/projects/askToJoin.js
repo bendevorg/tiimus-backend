@@ -15,6 +15,7 @@
 const logger = require('../../../tools/logger');
 const database = require('../../models/database');
 const insertProjectUsers = require('./insertProjectUsers');
+const generateToken = require('../../utils/generateToken');
 const sendEmail = require('../../utils/sendEmail');
 const validator = require('../../utils/validator');
 const constants = require('../../utils/constants');
@@ -22,7 +23,7 @@ const constants = require('../../utils/constants');
 /**
  * Ask to join a project by its id
  *
- * @param {string} req.params.projectId - Project id to retrieve info 
+ * @param {string} req.params.projectId - Project id to retrieve info
  * @return {object} - Returns the project in a json format
  * @throws {object} - Returns a msg that indicates a failure
  *
@@ -65,7 +66,13 @@ module.exports = (req, res) => {
           msg: constants.messages.error.USER_ALREADY_JOINED
         });
       }
-      await insertProjectUsers(project, [user], constants.roles.CONTRIBUTOR, false, true).catch(err => {
+      await insertProjectUsers(
+        project,
+        [user],
+        constants.roles.CONTRIBUTOR,
+        false,
+        true
+      ).catch(err => {
         logger.error(err);
         return res.status(500).json({
           msg: constants.messages.error.UNEXPECTED_DB
@@ -74,10 +81,22 @@ module.exports = (req, res) => {
       res.status(200).json({
         msg: constants.messages.info.REQUEST_SENT
       });
-      const owner = project.users.find(user => user.projects_users.role === constants.roles.OWNER);
+      const owner = project.users.find(
+        user => user.projects_users.role === constants.roles.OWNER
+      );
+      const token = generateToken(
+        { userId: user.id, projectId: project.id },
+        constants.values.INVITE_DATA_ENCRYPT_KEY,
+        constants.values.INVITE_TOKEN_ENCRYPT_KEY,
+        constants.values.TOKEN_EXPIRATION_IN_SECONDS
+      );
       const subject = 'You have a new request!';
-      const htmlBody = `<b><a href="http://localhost:3339/users/${user.id}">${user.name}</a> is requesting to join <a href="http://localhost:3339/projects/${project.id}">${project.name}</a></b>
-      <br/><br/><a href="http://localhost:3339/"> Click here </a> to accept.`;
+      const htmlBody = `<b><a href="http://localhost:3339/users/${user.id}">${
+        user.name
+      }</a> is requesting to join <a href="http://localhost:3339/projects/${
+        project.id
+      }">${project.name}</a></b>
+      <br/><br/><a href="http://localhost:3342/projects/${project.id}/accept_invite?inviteData=${token}"> Click here </a> to accept.`;
       return sendEmail(owner.email, subject, htmlBody).catch(err => {
         logger.error(err);
       });

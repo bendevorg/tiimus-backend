@@ -15,6 +15,7 @@
 const logger = require('../../../tools/logger');
 const database = require('../../models/database');
 const insertProjectUsers = require('../projects/insertProjectUsers');
+const generateToken = require('../../utils/generateToken');
 const sendEmail = require('../../utils/sendEmail');
 const validator = require('../../utils/validator');
 const constants = require('../../utils/constants');
@@ -67,7 +68,13 @@ module.exports = (req, res) => {
           msg: constants.messages.error.INVALID_PROJECT_ID
         });
       }
-      if (!project.users.some(currentUser => currentUser.id === user.id && currentUser.projects_users.role === constants.roles.OWNER)) {
+      if (
+        !project.users.some(
+          currentUser =>
+            currentUser.id === user.id &&
+            currentUser.projects_users.role === constants.roles.OWNER
+        )
+      ) {
         return res.status(401).json({
           msg: constants.messages.error.NOT_OWNER
         });
@@ -87,7 +94,13 @@ module.exports = (req, res) => {
               msg: constants.messages.error.USER_NOT_FOUND
             });
           }
-          await insertProjectUsers(project, [userId], constants.roles.CONTRIBUTOR, true, false).catch(err => {
+          await insertProjectUsers(
+            project,
+            [userId],
+            constants.roles.CONTRIBUTOR,
+            true,
+            false
+          ).catch(err => {
             logger.error(err);
             return res.status(500).json({
               msg: constants.messages.error.UNEXPECTED_DB
@@ -96,12 +109,22 @@ module.exports = (req, res) => {
           res.status(200).json({
             msg: constants.messages.info.REQUEST_SENT
           });
+          const token = generateToken(
+            { userId: user.id, projectId: project.id },
+            constants.values.INVITE_DATA_ENCRYPT_KEY,
+            constants.values.INVITE_TOKEN_ENCRYPT_KEY,
+            constants.values.TOKEN_EXPIRATION_IN_SECONDS
+          );
           const subject = 'You have a new invite!';
-          const htmlBody = `<b>You are being invited to join <a href="http://localhost:3339/projects/${project.id}">${project.name}</a></b>
-          <br/><br/><a href="http://localhost:3339/"> Click here </a> to accept.`;
-          return sendEmail(requestedUser.email, subject, htmlBody).catch(err => {
-            logger.error(err);
-          });
+          const htmlBody = `<b>You are being invited to join <a href="http://localhost:3339/projects/${
+            project.id
+          }">${project.name}</a></b>
+          <br/><br/><a href="http://localhost:3342/projects/${project.id}/accept_invite?inviteData=${token}"> Click here </a> to accept.`;
+          return sendEmail(requestedUser.email, subject, htmlBody).catch(
+            err => {
+              logger.error(err);
+            }
+          );
         })
         .catch(err => {
           logger.error(err);
