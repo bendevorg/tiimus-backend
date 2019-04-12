@@ -6,6 +6,7 @@
 
 const getDataFromToken = require('../utils/getDataFromToken');
 const constants = require('../utils/constants');
+const validator = require('../utils/validator');
 const logger = require('../../tools/logger');
 const database = require('../models/database');
 
@@ -18,7 +19,13 @@ const database = require('../models/database');
  */
 module.exports = (req, res, next) => {
 
-  const userData = getDataFromToken(req, constants.values.TOKEN_ENCRYPT_KEY);
+  if (!req.cookies || !validator.isValidString(req.cookies.session)) {
+    return res.status(401).json({
+      msg: constants.messages.error.INVALID_LOGIN
+    });
+  }
+
+  const userData = getDataFromToken(req.cookies.session, constants.values.TOKEN_ENCRYPT_KEY);
 
   if (!userData) {
     return res.status(401).json({

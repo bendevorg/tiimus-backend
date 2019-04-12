@@ -5,6 +5,7 @@
  */
 
 const getDataFromToken = require('../utils/getDataFromToken');
+const validator = require('../utils/validator');
 const constants = require('../utils/constants');
 
 /**
@@ -15,7 +16,6 @@ const constants = require('../utils/constants');
  * @throws {json} - Throws a message with the error info
  */
 module.exports = (req, res, next) => {
-
   if (!req.cookies || !validator.isValidString(req.cookies.session)) {
     return next();
   }
