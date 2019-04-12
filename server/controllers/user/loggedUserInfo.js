@@ -27,6 +27,8 @@
     { "msg": "You have to be logged in to access this feature." }
   *
  */
+const database = require('../../models/database');
+const logger = require('../../../tools/logger');
 const constants = require('../../utils/constants');
 
 /**
@@ -45,7 +47,26 @@ module.exports = (req, res) => {
     });
   }
 
-  return res.status(200).json({
-    msg: user
+  return user.getProjects({
+    through: {
+      model: database.projects_users,
+      attributes: ['role'],
+      where: {
+        ownerAccepted: true,
+        contributorAccepted: true
+      }
+    }
+  })
+  .then(projects => {
+    user.dataValues.projects = projects;
+    return res.status(200).json({
+      msg: user
+    });
+  })
+  .catch(err => {
+    logger.error(err);
+    return res.status(206).json({
+      msg: user
+    });
   });
 };

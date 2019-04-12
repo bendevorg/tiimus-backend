@@ -30,14 +30,13 @@ const constants = require('../../utils/constants');
 module.exports = (req, res) => {
   const { projectId } = req.params;
   const { user } = req;
-  console.log('1 :', 1);
   if (!validator.isValidUuid(projectId)) {
     return res.status(404).json({
       msg: constants.messages.error.PROJECT_NOT_FOUND
     });
   }
 
-  database.projects
+  return database.projects
     .findById(projectId, {
       attributes: ['id', 'name'],
       include: [
@@ -56,7 +55,6 @@ module.exports = (req, res) => {
       ]
     })
     .then(async project => {
-      console.log('1 :', 1);
       if (!project) {
         return res.status(404).json({
           msg: constants.messages.error.INVALID_PROJECT_ID
