@@ -15,6 +15,11 @@ const constants = require('../utils/constants');
  * @throws {json} - Throws a message with the error info
  */
 module.exports = (req, res, next) => {
-  req.user = getDataFromToken(req, constants.values.TOKEN_ENCRYPT_KEY);
+
+  if (!req.cookies || !validator.isValidString(req.cookies.session)) {
+    return next();
+  }
+
+  req.user = getDataFromToken(req.cookies.session, constants.values.TOKEN_ENCRYPT_KEY);
   return next();
 };

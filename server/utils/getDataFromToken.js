@@ -15,10 +15,10 @@ const validator = require('./validator');
  * @throws {boolean} - Returns false that indicates a fail
  *
  */
-module.exports = (req, key) => {
-  if (!req.cookies || !validator.isValidString(req.cookies.session)) {
+module.exports = (data, key) => {
+  if (!validator.isValidString(data) || !validator.isValidString(key)) {
     return null;
   }
 
-  return tokenDecryptor(req.cookies.session, key);
+  return tokenDecryptor(data, key);
 };
