@@ -47,21 +47,25 @@ module.exports = (req, res) => {
         {
           model: database.users,
           attributes: ['id', 'name', 'email'],
-          where: {
-            id: invite.userId
-          },
           through: {
             model: database.projects_users,
             attributes: ['role', 'ownerAccepted', 'contributorAccepted'],
             where: {
               [database.Sequelize.Op.or]: [
                 {
-                  ownerAccepted: false,
-                  contributorAccepted: true
+                  [database.Sequelize.Op.or]: [
+                    {
+                      ownerAccepted: false,
+                      contributorAccepted: true
+                    },
+                    {
+                      ownerAccepted: true,
+                      contributorAccepted: false
+                    }
+                  ]
                 },
                 {
-                  ownerAccepted: true,
-                  contributorAccepted: false
+                  role: constants.roles.OWNER
                 }
               ]
             }
@@ -75,15 +79,47 @@ module.exports = (req, res) => {
           msg: constants.messages.error.PROJECT_NOT_FOUND
         });
       }
-      const [role, ownerAccepted, contributorAccepted] = [constants.roles.CONTRIBUTOR, true, true];
-      project.addUsers([invite.userId], { through: { role, ownerAccepted, contributorAccepted } })
+      let isUserInvited = project.users.some(user => user.role !== constants.roles.OWNER && user.id === invite.userId);
+      if (!isUserInvited) {
+        return res.status(404).json({
+          msg: constants.messages.error.PROJECT_NOT_FOUND
+        });
+      }
+      const [role, ownerAccepted, contributorAccepted] = [
+        constants.roles.CONTRIBUTOR,
+        true,
+        true
+      ];
+      project
+        .addUsers([invite.userId], {
+          through: { role, ownerAccepted, contributorAccepted }
+        })
         .then(success => {
           if (!success) {
             return res.stauts(500).json({
               msg: constants.messages.error.UNEXPECTED_RUNNING
             });
           }
-          return res.redirect(`http://localhost:3339/projects/${invite.projectId}`);
+          const userAdded = project.users.find(user => user.id === invite.userId);
+          const owner = project.users.find(user => user.projects_users.role === constants.roles.OWNER);
+
+          let subject = `Welcome to ${project.name}!`;
+          let htmlBody = `<b>You are now a member of <a href="http://localhost:3339/projects/${
+            project.id
+          }">${project.name}</a></b>`;
+          sendEmail(userAdded.email, subject, htmlBody);
+
+          subject = `A new user joined ${project.name}`;
+          htmlBody = `<a href="http://localhost:3339/users/${
+            userAdded.id
+          }">${userAdded.name}</a> is now a member of <a href="http://localhost:3339/projects/${
+            project.id
+          }">${project.name}</a>`;
+          sendEmail(owner.email, subject, htmlBody);
+
+          return res.redirect(
+            `http://localhost:3339/projects/${invite.projectId}`
+          );
         })
         .catch(err => {
           logger.error(err);
