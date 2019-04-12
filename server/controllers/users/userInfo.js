@@ -57,7 +57,11 @@ module.exports = (req, res) => {
           model: database.projects,
           attributes: ['id', 'name', 'image', 'description'],
           through: {
-            attributes: ['role']
+            attributes: ['role'],
+            where: {
+              ownerAccepted: true,
+              contributorAccepted: true
+            }
           },
           include: [
             {
