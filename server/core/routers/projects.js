@@ -22,5 +22,6 @@ router.get('/:projectId', optionalUserMiddleware, controllers.retrieveProject);
 router.post('/:projectId/users', userMiddleware, controllers.insertUsers);
 router.patch('/:projectId', userMiddleware, upload.single('image'), controllers.editProject);
 router.post('/:projectId/ask_to_join', userMiddleware, controllers.askToJoin);
+router.get('/:projectId/accept_invite', controllers.acceptInvite);
 
 module.exports = router;

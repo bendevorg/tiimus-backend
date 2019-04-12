@@ -110,7 +110,7 @@ module.exports = (req, res) => {
             msg: constants.messages.info.REQUEST_SENT
           });
           const token = generateToken(
-            { userId: user.id, projectId: project.id },
+            { userId: userId, projectId: project.id },
             constants.values.INVITE_DATA_ENCRYPT_KEY,
             constants.values.INVITE_TOKEN_ENCRYPT_KEY,
             constants.values.TOKEN_EXPIRATION_IN_SECONDS
