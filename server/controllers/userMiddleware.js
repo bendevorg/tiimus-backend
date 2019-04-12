@@ -5,6 +5,7 @@
  */
 
 const getDataFromToken = require('../utils/getDataFromToken');
+const decryptor = require('../utils/decryptor');
 const constants = require('../utils/constants');
 const validator = require('../utils/validator');
 const logger = require('../../tools/logger');
@@ -25,7 +26,8 @@ module.exports = (req, res, next) => {
     });
   }
 
-  const userData = getDataFromToken(req.cookies.session, constants.values.TOKEN_ENCRYPT_KEY);
+  const encryptedUserData = getDataFromToken(req.cookies.session, constants.values.TOKEN_ENCRYPT_KEY);
+  const userData = decryptor(encryptedUserData.token, constants.values.USER_DATA_ENCRYPT_KEY);
 
   if (!userData) {
     return res.status(401).json({

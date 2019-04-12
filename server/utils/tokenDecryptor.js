@@ -20,13 +20,9 @@ module.exports = (token, key) => {
 
   try {
     let decodedToken = jwt.verify(token, key);
-    if (!decodedToken || !decodedToken.token)
+    if (!decodedToken)
       return false;
-    let decryptedData = decryptor(decodedToken.token, constants.values.USER_DATA_ENCRYPT_KEY);
-    if (!decryptedData)
-      return false;
-
-    return decryptedData;
+    return decodedToken;
   } catch (err) {
     return false;
   }
