@@ -14,7 +14,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ['http://tiimus.com'],
+    origin: ['http://tiimus.com', 'https://tiimus.com'],
     methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
     credentials: true
   })
