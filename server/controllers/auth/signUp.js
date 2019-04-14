@@ -101,7 +101,11 @@ module.exports = (req, res) => {
           constants.values.USER_DATA_ENCRYPT_KEY,
           constants.values.TOKEN_ENCRYPT_KEY,
           constants.values.TOKEN_EXPIRATION_IN_SECONDS
-        )
+        ),
+        {
+          domain: '.tiimus.com',
+          expires: new Date(Date.now() + (constants.values.TOKEN_EXPIRATION_IN_SECONDS * 1000))
+        }
       );
 
       return res.status(201).json({
