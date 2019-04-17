@@ -104,21 +104,21 @@ module.exports = (req, res) => {
           const owner = project.users.find(user => user.projects_users.role === constants.roles.OWNER);
 
           let subject = `Welcome to ${project.name}!`;
-          let htmlBody = `<b>You are now a member of <a href="http://localhost:3339/projects/${
+          let htmlBody = `<b>You are now a member of <a href="https://${process.env.FRONTEND_HOST}/projects/${
             project.id
           }">${project.name}</a></b>`;
           sendEmail(userAdded.email, subject, htmlBody);
 
           subject = `A new user joined ${project.name}`;
-          htmlBody = `<a href="http://localhost:3339/users/${
+          htmlBody = `<a href="https://${process.env.FRONTEND_HOST}/users/${
             userAdded.id
-          }">${userAdded.name}</a> is now a member of <a href="http://localhost:3339/projects/${
+          }">${userAdded.name}</a> is now a member of <a href="https://${process.env.FRONTEND_HOST}/projects/${
             project.id
           }">${project.name}</a>`;
           sendEmail(owner.email, subject, htmlBody);
 
           return res.redirect(
-            `http://localhost:3339/projects/${invite.projectId}`
+            `https://${process.env.FRONTEND_HOST}/projects/${invite.projectId}`
           );
         })
         .catch(err => {
