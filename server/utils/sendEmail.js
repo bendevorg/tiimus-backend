@@ -1,17 +1,20 @@
-const mailgun = require('mailgun-js');
-const mailer = mailgun({
-  apiKey: process.env.EMAIL_API_KEY,
-  domain: process.env.EMAIL_DOMAIN
-});
-const from = process.env.EMAIL_FROM;
+const nodemailer = require('nodemailer');
 
 module.exports = (to, subject, html) => {
   return new Promise(async (resolve, reject) => {
-    mailer.messages().send({ from, to, subject, html }, (error, body) => {
-      if (error) {
-        return reject(error);
+    let transporter = nodemailer.createTransport({
+      service: process.env.EMAIL_SERVICE,
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD
       }
-      return resolve(body);
     });
+
+    return resolve(await transporter.sendMail({
+      from: process.env.EMAIL_SERVICE,
+      to: to,
+      subject: subject,
+      html: html
+    }));
   });
 };
