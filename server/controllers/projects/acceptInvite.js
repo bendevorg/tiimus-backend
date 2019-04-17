@@ -109,7 +109,7 @@ module.exports = (req, res) => {
           }">${project.name}</a></b>`;
           sendEmail(userAdded.email, subject, htmlBody);
 
-          subject = `A new user joined ${project.name}`;
+          subject = `${userAdded.name} is now a member of ${project.name}`;
           htmlBody = `<a href="https://${process.env.FRONTEND_HOST}/users/${
             userAdded.id
           }">${userAdded.name}</a> is now a member of <a href="https://${process.env.FRONTEND_HOST}/projects/${
