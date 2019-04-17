@@ -90,13 +90,13 @@ module.exports = (req, res) => {
         constants.values.INVITE_TOKEN_ENCRYPT_KEY,
         constants.values.TOKEN_EXPIRATION_IN_SECONDS
       );
-      const subject = 'You have a new request!';
-      const htmlBody = `<b><a href="http://localhost:3339/users/${user.id}">${
+      const subject = `${user.name} is requesting to join ${project.name}!`;
+      const htmlBody = `<b><a href="https://${process.env.FRONTEND_HOST}/users/${user.id}">${
         user.name
-      }</a> is requesting to join <a href="http://localhost:3339/projects/${
+      }</a> is requesting to join <a href="https://${process.env.FRONTEND_HOST}/projects/${
         project.id
       }">${project.name}</a></b>
-      <br/><br/><a href="http://localhost:3342/projects/${project.id}/accept_invite?inviteData=${token}"> Click here </a> to accept.`;
+      <br/><br/><a href="https://${process.env.HOST}/projects/${project.id}/accept_invite?inviteData=${token}"> Click here </a> to accept.`;
       return sendEmail(owner.email, subject, htmlBody).catch(err => {
         logger.error(err);
       });

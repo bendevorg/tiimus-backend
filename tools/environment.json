@@ -2,11 +2,13 @@
   "development": {
     "NODE_ENV": "development",
     "PORT": 3342,
-    "FRONTEND_HOST": "localhost"
+    "FRONTEND_HOST": "localhost",
+    "HOST": "localhost"
   },
   "production": {
     "NODE_ENV": "production",
     "PORT": 3342,
-    "FRONTEND_HOST": "tiimus.com"
+    "FRONTEND_HOST": "tiimus.com",
+    "HOST": "backend.tiimus.com"
   }
 }
