@@ -1,19 +1,15 @@
-const mailgun = require("mailgun-js");
-const mailer = mailgun({apiKey: process.env.EMAIL_API_KEY, domain: process.env.EMAIL_DOMAIN});
+const mailgun = require('mailgun-js');
+const mailer = mailgun({
+  apiKey: process.env.EMAIL_API_KEY,
+  domain: process.env.EMAIL_DOMAIN
+});
+const from = process.env.EMAIL_FROMç;
 
 module.exports = (to, subject, html) => {
   return new Promise(async (resolve, reject) => {
-
-    const data = {
-      from: process.env.EMAIL_FROM,
-      to: to,
-      subject: subject,
-      text: html
-    };
-
-    mailer.messages().send(data, (error, body) => {
+    mailer.messages().send({ from, to, subject, html }, (error, body) => {
       if (error) {
-        return reject(error)
+        return reject(error);
       }
       return resolve(body);
     });
