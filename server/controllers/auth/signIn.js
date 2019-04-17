@@ -78,7 +78,7 @@ module.exports = (req, res) => {
           constants.values.TOKEN_EXPIRATION_IN_SECONDS
         ),
         {
-          domain: `.${process.env.FRONTEND_HOST}`,
+          domain: process.env.COOKIE_DOMAIN,
           expires: new Date(Date.now() + (constants.values.TOKEN_EXPIRATION_IN_SECONDS * 1000))
         }
       );
